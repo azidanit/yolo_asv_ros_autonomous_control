@@ -1,0 +1,3 @@
+latitude_atas, longitude_kiri
+latitude_bawah, longitude_kanan
+jarak_vertical jarak_horizontal

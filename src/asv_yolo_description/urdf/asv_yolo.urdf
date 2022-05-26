@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="prius">
+
+  <link name="map">
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+    </inertial>
+  </link>
+  <joint name="base_link" type="fixed">
+    <parent link="map"/>
+    <child link="asv/base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <link name="asv/base_link">
+    <visual>
+      <origin xyz="-0.5 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://asv_yolo_description/models/yolo_asv_base/mesh/Hull.STL"/>
+      </geometry>
+    </visual>
+
+    <collision name="asv/base_link">
+      <origin xyz="0.0 0.05 0.625" rpy="0 0 0"/>
+      <geometry>
+        <box size="1.7526 2.1 0.95"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
