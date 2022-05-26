@@ -1,0 +1,2 @@
+int8 status_command
+int8 terminal

@@ -1,0 +1,59 @@
+
+<library path="lib/librviz_plugin_lib">
+  <class name="waypoint_nav_plugin/WaypointNav"
+         type="waypoint_nav_plugin::WaypointNavTool"
+         base_class_type="rviz::Tool">
+    <description>
+      Tool for planting waypoints on the ground plane in rviz.
+    </description>
+  </class>
+
+  <class name="rviz_plugin/pid_plugin"
+         type="PIDPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget allowing simple diff-drive style robot base control.
+    </description>
+  </class>
+
+  <class name="rviz_plugin/camerapluign"
+         type="CameraPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget allowing simple diff-drive style robot base control.
+    </description>
+  </class>
+
+  <class name="rviz_plugin/missionplugin"
+         type="MissionPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget for mission control.
+    </description>
+  </class>
+
+  <class name="rviz_plugin/manualcotrol"
+         type="ManualControl"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget for mission control.
+    </description>
+  </class>
+
+  <class name="rviz_plugin/pixhawksensor"
+         type="pixhawkSensorPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget to monitor pixhawk sensor.
+    </description>
+  </class>
+
+  <class name="rviz_plugin/carcommunication"
+         type="carCommunicationPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget to monitor car communication.
+    </description>
+  </class>
+</library>
+

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>pixhawkSensor</class>
+ <widget class="QWidget" name="pixhawkSensor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>398</width>
+    <height>260</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>103</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>Pixhawk Status</string>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>382</width>
+     <height>212</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="status">
+    <property name="minimumSize">
+     <size>
+      <width>378</width>
+      <height>0</height>
+     </size>
+    </property>
+    <attribute name="title">
+     <string>Status</string>
+    </attribute>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Vehicle Speed (GPS) :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="gps_status_label">
+         <property name="text">
+          <string>Gps_status</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>GPS STATUS :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>GPS SATELLITE :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="gps_count_label">
+         <property name="text">
+          <string>gps_count</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="speed_gps_label">
+         <property name="text">
+          <string>speed_gps</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Vehicle Speed (Local) :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="speed_local_label">
+         <property name="text">
+          <string>speed_local</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>GPS Accuracy :</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="gps_accuracy_label">
+         <property name="text">
+          <string>gps_accuracy_label</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Compass (deg)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLabel" name="compass_label">
+         <property name="text">
+          <string>compass_label</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Health</string>
+    </attribute>
+    <widget class="QLabel" name="magnetometer_label">
+     <property name="geometry">
+      <rect>
+       <x>192</x>
+       <y>9</y>
+       <width>143</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>magnetometer_label</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>133</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3D Magnetometer :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ahrs_label">
+     <property name="geometry">
+      <rect>
+       <x>192</x>
+       <y>51</y>
+       <width>70</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ahrs_label</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>94</y>
+       <width>73</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CPU Load :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="cpu_load_label">
+     <property name="geometry">
+      <rect>
+       <x>192</x>
+       <y>94</y>
+       <width>102</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>cpu_load_label</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>51</y>
+       <width>114</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>AHRS subsytem :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>136</y>
+       <width>55</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3D Gyro</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="gyro_label">
+     <property name="geometry">
+      <rect>
+       <x>192</x>
+       <y>136</y>
+       <width>98</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3D_gyro_label</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="connectionStatus">
+   <property name="geometry">
+    <rect>
+     <x>266</x>
+     <y>10</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(164, 0, 0);</string>
+   </property>
+   <property name="text">
+    <string>Disconnected</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

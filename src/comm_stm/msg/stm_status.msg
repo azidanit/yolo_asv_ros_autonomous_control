@@ -1,0 +1,6 @@
+int32 state_remote
+int32 speed_mode
+int32 is_tekin_available
+int32 remote_servo
+int32 remote_motor
+int32 trim

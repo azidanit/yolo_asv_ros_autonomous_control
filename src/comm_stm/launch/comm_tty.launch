@@ -1,0 +1,3 @@
+<launch>
+    <node name="serial" pkg="comm_stm" type="comm_stm_node" args="tty /dev/ttl_waveshare_0 9600" output="screen" />
+</launch>
