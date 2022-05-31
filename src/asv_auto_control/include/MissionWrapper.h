@@ -186,9 +186,6 @@ private:
     void setNextDest();
     double getAnglePath();
 
-
-
-
     //PATH VARIABLE
     ros::Publisher path_pub, loaded_path_pub, global_path_pub;
     nav_msgs::Path path_msg, loaded_path_msg, global_path_msg;

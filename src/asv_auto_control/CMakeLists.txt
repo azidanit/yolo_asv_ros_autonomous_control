@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(asv_control)
+project(asv_auto_control)
 
 find_package(catkin REQUIRED COMPONENTS
   std_msgs
@@ -36,7 +36,7 @@ qt5_wrap_cpp(QT_MOC_HPP
 ###################################
 catkin_package(
         INCLUDE_DIRS include
-        LIBRARIES asv_control
+        LIBRARIES asv_auto_control
         CATKIN_DEPENDS roscpp std_msgs rviz_plugin
         DEPENDS roscpp
 )
@@ -86,5 +86,5 @@ target_link_libraries(${PROJECT_NAME}_node
 #############
 ## Install ##
 #############
-install(DIRECTORY ui DESTINATION ${CMAKE_INSTALL_PREFIX}/share/asv_control)
-install(DIRECTORY resource DESTINATION ${CMAKE_INSTALL_PREFIX}/share/asv_control)
+install(DIRECTORY ui DESTINATION ${CMAKE_INSTALL_PREFIX}/share/asv_auto_control)
+install(DIRECTORY resource DESTINATION ${CMAKE_INSTALL_PREFIX}/share/asv_auto_control)
