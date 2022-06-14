@@ -6,6 +6,12 @@
 
 Control::Control(){
 
+    //init tf var
+    tfListener = new tf2_ros::TransformListener(tfBuffer);
+
+    Misi* misisons[1];
+    misisons[0] = new FindKorban(this);
+    // misisons[1] = new FindKorban(this);
 }
 
 Control::~Control(){
@@ -13,7 +19,45 @@ Control::~Control(){
 }
 
 void Control::run(){
+    ros::Rate rr(50);
+    while (ros::ok())
+    {
+        listenASVTF();
+        rr.sleep();
+        ros::spinOnce();
+    }
+    
+}
 
+void Control::listenASVTF(){
+    double roll, pitch, yaw;
+
+    try{
+        transformStamped = tfBuffer.lookupTransform("map", "asv/base_link",
+                               ros::Time(0));
+        ASV_TF.pos.y = transformStamped.transform.translation.y;
+        ASV_TF.pos.x = transformStamped.transform.translation.x;
+        ASV_TF.pos.z = 0;
+
+        tf2::Quaternion q(
+            transformStamped.transform.rotation.x,
+            transformStamped.transform.rotation.y,
+            transformStamped.transform.rotation.z,
+            transformStamped.transform.rotation.w);
+        tf2::Matrix3x3 m(q);
+        m.getRPY(ASV_TF.roll, ASV_TF.pitch, ASV_TF.yaw);
+    }
+    catch (tf2::TransformException &ex) {
+      ROS_WARN("%s",ex.what());
+    //   ros::Duration(1.0).sleep();
+    }
+
+    // std::cout << "ASV TF COTNROL " << ASV_TF.pos.x << " " << ASV_TF.pos.y << " YAW " << ASV_TF.yaw << std::endl;
+
+}
+
+TF_simplified Control::getRobotTf(){
+    return ASV_TF;
 }
 
 void Control::startMission() {

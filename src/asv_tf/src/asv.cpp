@@ -10,7 +10,7 @@ ASV::ASV(char* filename_venue){
     local_y = local_x = local_yaw = 0;
     gps_sub = nh.subscribe("/mavros/global_position/global", 1, &ASV::gpsCallback, this);
     compass_sub = nh.subscribe("/mavros/global_position/cmp_hdg", 1, &ASV::compassCallback, this);
-    mag_sub = nh.subscribe("/mavros/imu/mag", 1, &ASV::magCallback, this);
+    // mag_sub = nh.subscribe("/mavros/imu/mag", 1, &ASV::magCallback, this);
     imu_sub = nh.subscribe("/mavros/imu/data", 1, &ASV::imuCallback, this);
 }
 
@@ -22,7 +22,7 @@ void ASV::update() {
 
     transformStamped.header.stamp = ros::Time::now();
     transformStamped.header.frame_id = "map";
-    transformStamped.child_frame_id = "odom";
+    transformStamped.child_frame_id = "asv/odom";
     transformStamped.transform.translation.x = local_x;
     transformStamped.transform.translation.y = local_y;
     transformStamped.transform.translation.z = 0.0;
@@ -37,7 +37,7 @@ void ASV::update() {
 
     ////////////////////////////
     transformStamped.header.stamp = ros::Time::now();
-    transformStamped.header.frame_id = "odom";
+    transformStamped.header.frame_id = "asv/odom";
     transformStamped.child_frame_id = "asv/base_link";
     transformStamped.transform.translation.x = 0;
     transformStamped.transform.translation.y = 0;
@@ -67,6 +67,7 @@ void ASV::magCallback(const sensor_msgs::MagneticField::ConstPtr& msg){
 
 void ASV::compassCallback(std_msgs::Float64 msg) {
     local_yaw = msg.data;
+    local_yaw *= M_PI/180;
 }
 
 void ASV::imuCallback(const sensor_msgs::Imu::ConstPtr& msg){

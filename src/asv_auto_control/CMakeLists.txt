@@ -19,8 +19,8 @@ find_package(catkin REQUIRED COMPONENTS
 find_package( OpenCV REQUIRED )
 
 #File GLOB Recursive
-file(GLOB NALA_SRCS src/*.cpp src/misi/*.cpp src/widget/*.cpp src/sub_control/*.cpp)
-file(GLOB NALA_HDRS include/*.h include/misi/*.h include/widget/*.h include/sub_control/*.h)
+file(GLOB NALA_SRCS src/*.cpp src/misi/*.cpp src/widget/*.cpp src/sub_control/*.cpp src/utils_class/*.cpp)
+file(GLOB NALA_HDRS include/*.h include/misi/*.h include/widget/*.h include/sub_control/*.h include/utils_class/*.h)
 
 #QT AUTOCOMPILE UI TO CPP
 find_package( Qt5 COMPONENTS Widgets Core Gui Concurrent REQUIRED )

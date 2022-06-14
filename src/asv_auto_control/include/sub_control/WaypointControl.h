@@ -1,24 +1,26 @@
 //
-// Created by azidanit on 5/30/22.
+// Created by azidanit on 5/30/22
 //
 
 #ifndef SRC_WAYPOINTCONTROL_H
 #define SRC_WAYPOINTCONTROL_H
 
-#include "MissionWrapper.h"
+#include "Control.h"
 #include "geometry_msgs/Twist.h"
 #include "utils.hpp"
 
-class MissionWrapper;
+class Control;
 
 class WaypointControl{
 public:
-    WaypointControl(MissionWrapper*);
+    WaypointControl(Control*);
     ~WaypointControl();
 
     geometry_msgs::Twist calculateOut();
+
+    void setPath(nav_msgs::Path path_);
 private:
-    MissionWrapper* mw_;
+    Control* ct_;
 
     bool is_using_left_path;
 

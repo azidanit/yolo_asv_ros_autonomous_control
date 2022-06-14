@@ -7,10 +7,13 @@
 
 #include "ros/ros.h"
 #include <nav_msgs/Path.h>
+#include <geometry_msgs/TransformStamped.h>
+#include <geometry_msgs/Twist.h>
 #include <sensor_msgs/NavSatFix.h>
 
 #include <tf/transform_listener.h>
-
+#include <tf2_ros/transform_listener.h>
+#include <tf2/LinearMath/Matrix3x3.h>
 
 #include "QThread"
 #include <QPoint>
@@ -18,14 +21,25 @@
 #include <QFile>
 #include <QTextStream>
 
+#include <misi/FindKorban.h>
+#include <misi/misi.h>
+
 #define LAT_TO_METER 111000
 #define LON_TO_METER 113321
 
+class FindKorban;
 
 typedef struct {
     geometry_msgs::Point pos;
     double roll, pitch, yaw;
 } TF_simplified;
+
+enum MissionName{
+    FIND_KORBAN = 0,
+    HOLD_KORBAN = 1,
+    RTH = 2,
+    QUICK_RTH = 21,
+};
 
 class Control : public QThread{
     Q_OBJECT
@@ -35,6 +49,8 @@ public:
     ~Control();
     void run();
 
+    TF_simplified getRobotTf();
+
     ros::NodeHandle nh;
 
 private:
@@ -42,13 +58,19 @@ private:
 
     std::mutex param_qt_mtx;
 
+    FindKorban *find_korban;
 
-        //----ASV variable----
+    //----ASV TF variable----
     tf::StampedTransform currentBoatTF;
+    geometry_msgs::TransformStamped transformStamped;
+    tf2_ros::Buffer tfBuffer;
+    tf2_ros::TransformListener *tfListener;
     TF_simplified ASV_TF;
     std::string world_frame, robot_frame;
     std::mutex tf_mutex, sensor_mtx;
-    tf::TransformListener boatTF_sub;
+    // ----ASV TF Function-----
+    void listenASVTF();
+
 
 
     //PATH VARIABLE
@@ -105,6 +127,12 @@ public slots:
 
     void changeCritLine(int, int);
     void changeBoatSide(QPoint**);
+
+signals:
+    void setLogInformationDisplay(QString msg);
+    void steer_trim_changed_from_remote(int val);
+
+    void setCritLine(int idx, int val);
 };
 
 #endif //SRC_CONTROL_H

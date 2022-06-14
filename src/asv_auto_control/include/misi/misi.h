@@ -5,17 +5,17 @@
 #ifndef SRC_MISI_H
 #define SRC_MISI_H
 
+#include "Control.h"
+
+class Control;
 
 class Misi {
 public:
-    Misi();
-    ~Misi();
-
-    double calculateWaypointNavigationError();
-
-    void setWaypoints();
+    // Misi(Control *ct_);
+    // ~Misi();
 
 private:
+    // Control* ct;
 
 };
 

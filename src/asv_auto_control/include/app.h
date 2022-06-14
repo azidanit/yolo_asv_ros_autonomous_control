@@ -11,7 +11,8 @@
 #include <typeinfo>
 #include <ros/ros.h>
 
-#include "MissionWrapper.h"
+// #include "MissionWrapper.h"
+#include <Control.h>
 
 class App : public QApplication{
     Q_OBJECT
@@ -22,7 +23,8 @@ public:
 
 private:
     ros::NodeHandle nh;
-    MissionWrapper *missionWrapper;
+    // MissionWrapper *missionWrapper;
+    Control *control;
 
 
     void initConnection();
