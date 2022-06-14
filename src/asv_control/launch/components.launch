@@ -1,8 +1,0 @@
-<launch>
-
-<!-- <node name="serial" pkg="serial_stm" type="serial_stm_node" args="tty /dev/ttyUSB0" output="screen" /> -->
-<node name="comm_stm" pkg="comm_stm" type="comm_stm_node" args="udp 44444 8888 169.254.223.221" output="screen" />
-<include file="$(find mavros)/launch/px4.launch"></include>
-
-
-</launch>
