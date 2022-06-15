@@ -145,7 +145,7 @@ private Q_SLOTS:
   void setMission(int index);
   void topicChanged();
   void poseChanged(double val);
-  void speedChanged(double val);
+  void speedChanged(int val);
   void saveButtonClicked();
   void loadButtonClicked();
   void makeWPButtonClicked();

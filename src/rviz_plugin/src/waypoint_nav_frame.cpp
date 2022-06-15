@@ -94,7 +94,6 @@ namespace waypoint_nav_plugin
 
   missionSelected = 0;
 has_loaded = false;
-ui_->topic_line_edit->setText("/waypoints");
 
         //connect the Qt signals and slots
   connect(ui_->publish_wp_button, SIGNAL(clicked()), this, SLOT(publishButtonClicked()));
@@ -113,7 +112,7 @@ ui_->topic_line_edit->setText("/waypoints");
   connect(ui_->x_doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(poseChanged(double)));
   connect(ui_->y_doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(poseChanged(double)));
   connect(ui_->z_doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(poseChanged(double)));
-  connect(ui_->yaw_doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(speedChanged(double)));
+  connect(ui_->yaw_doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(speedChanged(int)));
 
   connect(ui_->save_wp_button, SIGNAL(clicked()), this, SLOT(saveButtonClicked()));
   connect(ui_->load_wp_button, SIGNAL(clicked()), this, SLOT(loadButtonClicked()));
@@ -138,10 +137,6 @@ ui_->topic_line_edit->setText("/waypoints");
 
     connect(ui_->insert_wp_pushButton, SIGNAL(clicked()), this, SLOT(insertWPClicked()));
     connect(ui_->open_default_pushButton, SIGNAL(clicked()), this, SLOT(loadLastSetting()));
-
-
-  ui_->topic_line_edit->setText("/waypoints");
-
 
     //init paths & publisher
   for(int i =0;i<4;i++){
@@ -861,14 +856,8 @@ void WaypointFrame::frameChanged()
 
 void WaypointFrame::topicChanged()
 {
-  std::cout << "CALLED TOPIC CHANGE " << ui_->topic_line_edit->text().toStdString() << std::endl;
   QString new_topic = ui_->topic_line_edit->text();
-  if (new_topic.toStdString() == ""){
-    new_topic = "/waypoints";
-    std::cout << "no data topic wp\n";
-    
-    wp_pub_ = nh_.advertise<rviz_plugin::Selectedwp>(new_topic.toStdString(), 1);
-  }
+
   // Only take action if the name has changed.
   if(new_topic != output_topic_)
   {
@@ -1134,8 +1123,6 @@ void WaypointFrame::setPath(){
           pos.pose.orientation.y = quat.y;
           pos.pose.orientation.z = quat.z;
           pos.pose.orientation.w = quat.w;
-
-          
 
 
           path->poses.push_back(pos);
