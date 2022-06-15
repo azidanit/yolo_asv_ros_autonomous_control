@@ -43,7 +43,7 @@ ManualControl::ManualControl( QWidget* parent )
     connect( overrideButton, SIGNAL(clicked()),this, SLOT(overrideButtonCallback()));
 
     connect( output_timer, SIGNAL( timeout() ), this, SLOT( sendVel() ));
-    Q_EMIT setTopic("/manualctrl");
+    Q_EMIT setTopic("/asv/cmd_vel");
     // Start the timer.
     output_timer->start( 20 );
     // sub = nh_.subscribe("/trim", 10, &ManualControl::trimSubsCallback,this);
@@ -89,7 +89,8 @@ void ManualControl::setTopic( const QString& new_topic )
         }
         else
         {
-            velocity_publisher_ = nh_.advertise<rviz_plugin::ManualCtrl>( output_topic_.toStdString(), 1 );
+            // velocity_publisher_ = nh_.advertise<rviz_plugin::ManualCtrl>( output_topic_.toStdString(), 1 );
+            velocity_publisher_ = nh_.advertise<geometry_msgs::Twist>( output_topic_.toStdString(), 1 );
         }
         Q_EMIT configChanged();
     }
@@ -103,11 +104,14 @@ void ManualControl::sendVel()
     if( isOverride && ros::ok() && velocity_publisher_ )
     {
 
-        rviz_plugin::ManualCtrl msg;
-        msg.speed = speed;
-        msg.servo = servo;
-
-        velocity_publisher_.publish( msg );
+        // rviz_plugin::ManualCtrl msg;
+        // msg.speed = speed / 1000;
+        // msg.servo = servo / 1000;
+        geometry_msgs::Twist msg_cmd;
+        msg_cmd.linear.x = speed / 1000;
+        msg_cmd.angular.z = servo / 1000;
+        
+        velocity_publisher_.publish( msg_cmd );
     }
 }
 

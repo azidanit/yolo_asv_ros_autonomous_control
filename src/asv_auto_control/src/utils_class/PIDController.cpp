@@ -52,3 +52,6 @@ double PIDController::getD(){
     return d;
 }
 
+void PIDController::resetError(){
+    error_acc = error_before = error_now = 0;
+}

@@ -8,9 +8,10 @@
 #include <QPushButton>
 #include <std_msgs/Int32.h>
 #include "drive_widget.h"
+#include <geometry_msgs/Twist.h>
 
-#define MAX_THROTLE 500
-#define MAX_STEERING 600
+#define MAX_THROTLE 1000
+#define MAX_STEERING 1000
 class QLineEdit;
 
     class DriveWidget;

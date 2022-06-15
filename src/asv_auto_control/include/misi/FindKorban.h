@@ -3,6 +3,7 @@
 #define SRC_FINDKORBAN_H
 
 #include "Control.h"
+#include <rviz_plugin/Selectedwp.h>
 #include "misi/misi.h"
 
 #include "sub_control/WaypointControl.h"
@@ -17,6 +18,7 @@ public:
 
     geometry_msgs::Twist calculateOut();
 
+    void stop();
 
 private:
     Control* ct;
@@ -30,7 +32,7 @@ private:
 
     void initSub();
     void initVar();
-    void wpCallback(nav_msgs::Path ms_path);
+    void wpCallback(rviz_plugin::Selectedwp msg_wp);
 
 
 };

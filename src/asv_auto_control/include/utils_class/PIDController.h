@@ -14,6 +14,8 @@ public:
     double getI();
     double getD();
 
+    void resetError();
+
 private:
     double p, i, d;
     double error_now, error_before, error_acc;

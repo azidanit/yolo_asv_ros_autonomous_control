@@ -14,10 +14,10 @@ asvCommunicationPanel::asvCommunicationPanel(QWidget *parent):
 
 void asvCommunicationPanel::initUi(){
     ui_->steer_bar_left->setTextVisible(false);
-    ui_->steer_bar_left->setMaximum(500);
-    ui_->steer_bar_right->setMaximum(500);
-    ui_->throtle_bar->setMaximum(500);
-    ui_->brake_bar->setMaximum(500);
+    ui_->steer_bar_left->setMaximum(1000);
+    ui_->steer_bar_right->setMaximum(1000);
+    ui_->throtle_bar->setMaximum(1000);
+    ui_->brake_bar->setMaximum(1000);
 }
 
 void asvCommunicationPanel::initSubscriber() {
@@ -26,19 +26,21 @@ void asvCommunicationPanel::initSubscriber() {
 }
 
 void asvCommunicationPanel::sendControlCallback(const geometry_msgs::Twist& msg) {
-    if (msg.angular.z <= 0){
-        ui_->steer_bar_left->setValue((int)-1*msg.angular.z * 1000);
+    if (msg.angular.z >= 0){
+        ui_->steer_bar_left->setValue((int)(msg.angular.z * 1000.0));
         ui_->steer_bar_right->setValue(0);
     }else{
-        ui_->steer_bar_right->setValue( (int)(msg.angular.z * 1000));
+        ui_->steer_bar_right->setValue( -1 *(int)(msg.angular.z * 1000.0));
         ui_->steer_bar_left->setValue(0);
     }
 
+    // std::cout << "STEER RVIZ" << (int)(msg.angular.z * 1000) << std::endl;
 
-    ui_->throtle_bar->setValue((int)msg.linear.y * 1000);
+    ui_->throtle_bar->setValue((int)(msg.linear.x * 1000));
     ui_->throtle_label->setText(QString(std::to_string(msg.linear.y).c_str()));
 
-    ui_->brake_bar->setValue(int(msg.linear.z)* 1000);
+    
+    ui_->brake_bar->setValue((int)(msg.linear.x * 1000 * -1));
     ui_->brake_label->setText(QString(std::to_string(msg.linear.z).c_str()));
 
     ui_->steering_label->setText(QString(std::to_string(msg.angular.z).c_str()));

@@ -73,6 +73,21 @@
            <string>All Mission</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>Find Korban</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Return To Launch</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Extra</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="2" column="3">

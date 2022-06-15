@@ -29,13 +29,22 @@ void Control::run(){
     ros::Rate rr(50);
     while (ros::ok())
     {
-        geometry_msgs::Twist out_cmd;
+        
         listenASVTF();
-        out_cmd = find_korban->calculateOut();
-        std::cout << out_cmd << std::endl;
 
-        asv_cmd_vel_pub.publish(out_cmd);
-
+        if(mission_state.data[0] == 1){
+            //start mission
+            out_cmd = find_korban->calculateOut();
+            std::cout << out_cmd << std::endl;
+        }else if(mission_state.data[0] == 0){
+            //stop mission
+            find_korban->stop();
+        }
+        
+        if(mission_state.data[0] != 0){
+            asv_cmd_vel_pub.publish(out_cmd);
+        }
+        
         rr.sleep();
         ros::spinOnce();
     }
@@ -43,6 +52,9 @@ void Control::run(){
 }
 
 void Control::initVar(){
+    mission_state.data.push_back(0);
+    mission_state.data.push_back(0);
+
     // find_korban->setPIDWpAngle(&pid_angle_wp_find_korban);
     // find_korban->setPIDWpDistance(&pid_distance_wp_find_korban);
 }
@@ -50,10 +62,17 @@ void Control::initVar(){
 void Control::initSub(){
 
     gps_raw_sub = nh.subscribe("/mavros/global_position/global",2,&Control::GPSRawCallback, this);
+
+    mission_state_control_sub = nh.subscribe("/rviz_plugin/stateMission",2,&Control::stateMissionCallback, this);
+
 }
 
 void Control::initPub(){
     asv_cmd_vel_pub = nh.advertise<geometry_msgs::Twist>("/asv/cmd_vel",1);
+
+    path_pub = nh.advertise<nav_msgs::Path>("/path_asv", 1);
+    global_path_pub = nh.advertise<nav_msgs::Path>("/path_asv_global", 1);
+    loaded_path_pub = nh.advertise<nav_msgs::Path>("/path_asv_loaded", 1);
 }
 
 void Control::GPSRawCallback(sensor_msgs::NavSatFix data_gps){
@@ -482,7 +501,7 @@ void Control::changeCritLine(int i, int cl) {
     param_qt_mtx.lock();
     // if (i) crit_line = cl;
     // else horizon = cl;
-    // param_qt_mtx.unlock();
+    param_qt_mtx.unlock();
 
     // sensor_control.setCurrentCritLineCamera(cl);
     // std::cout << "CRIT LINE " << crit_line << " " << horizon << "\n";
@@ -492,10 +511,26 @@ void Control::changeBoatSide(QPoint **) {
 
 }
 
+void Control::stateMissionCallback(std_msgs::UInt16MultiArray msgl){
+    mission_state_mtx.lock();
+    mission_state = msgl;
+    mission_state_mtx.unlock();
+
+
+}
+
 PIDController* Control::get_pid_angle_wp_find_korban(){
     return &pid_angle_wp_find_korban;
 }
 
 PIDController* Control::get_pid_distance_wp_find_korban(){
     return &pid_distance_wp_find_korban;
+}
+
+double Control::speedControlCalculate(double target){
+   return out_cmd.linear.x + pid_speed_control.updateError(target - current_asv_speed);
+}
+
+double Control::getCurrentASVSpeed(){
+    return current_asv_speed;
 }

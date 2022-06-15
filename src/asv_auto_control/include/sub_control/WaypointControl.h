@@ -26,6 +26,8 @@ public:
     void setWpPIDAngle(PIDController pid_new);
     void setWpPIDDistance(PIDController pid_new);
 
+    void stopAndReset();
+
 private:
     Control* ct_;
     Misi* ms_;

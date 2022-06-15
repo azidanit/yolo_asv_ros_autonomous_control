@@ -22,6 +22,9 @@ void FindKorban::initVar(){
     pid_angle_wp = ct->get_pid_angle_wp_find_korban();
     pid_distance_wp = ct->get_pid_distance_wp_find_korban();
 
+    pid_angle_wp->setP(0.1);
+    pid_distance_wp->setP(0.15);
+
     std::cout << "PID " << pid_distance_wp->getD();
     
 }
@@ -36,12 +39,20 @@ geometry_msgs::Twist FindKorban::calculateOut(){
 
 
 void FindKorban::initSub(){
-    path_sub = ct->nh.subscribe("/waypoints/find_korban", 1, &FindKorban::wpCallback, this);
+    path_sub = ct->nh.subscribe("/waypoints", 1, &FindKorban::wpCallback, this);
 
 }
 
-void FindKorban::wpCallback(nav_msgs::Path ms_path){
-    std::cout << "FIND KORBAN GOT WP\n";
-    wp_control->setPath(ms_path);
+
+void FindKorban::wpCallback(rviz_plugin::Selectedwp msg_wp){
+    if (msg_wp.missionSelected == 1){
+        std::cout << "FIND KORBAN GOT WP\n";
+        wp_control->setPath(msg_wp.wp);
+
+    }
+}
+
+void FindKorban::stop(){
+    wp_control->stopAndReset();
 }
 

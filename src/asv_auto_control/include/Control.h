@@ -6,10 +6,12 @@
 #define SRC_CONTROL_H
 
 #include "ros/ros.h"
+
 #include <nav_msgs/Path.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/NavSatFix.h>
+#include <std_msgs/UInt16MultiArray.h>
 
 #include <tf/transform_listener.h>
 #include <tf2_ros/transform_listener.h>
@@ -25,6 +27,7 @@
 
 #include <misi/FindKorban.h>
 #include <misi/misi.h>
+#include <rviz_plugin/Selectedwp.h>
 
 #define LAT_TO_METER 111000
 #define LON_TO_METER 113321
@@ -52,16 +55,19 @@ public:
     void run();
 
     TF_simplified getRobotTf();
+    double getCurrentASVSpeed();
 
     ros::NodeHandle nh;
 
     PIDController* get_pid_angle_wp_find_korban();
     PIDController* get_pid_distance_wp_find_korban();
 
+    double speedControlCalculate(double target);
+
 private:
     void dummyFunction();
 
-    std::mutex param_qt_mtx;
+    std::mutex param_qt_mtx, mission_state_mtx;
 
     Misi* misisons[1];
     FindKorban *find_korban;
@@ -72,7 +78,13 @@ private:
     //General PIDS
     PIDController pid_speed_control;
 
-    ros::Subscriber gps_raw_sub;
+    //ASV General Cmd
+    geometry_msgs::Twist out_cmd;
+
+    //Mission Var
+    std_msgs::UInt16MultiArray mission_state;
+
+    ros::Subscriber gps_raw_sub, mission_state_control_sub;
     ros::Publisher asv_cmd_vel_pub;
 
     //----ASV TF variable----
@@ -85,6 +97,8 @@ private:
     std::mutex tf_mutex, sensor_mtx;
     // ----ASV TF Function-----
     void listenASVTF();
+    // ASV RELATED VAR
+    double current_asv_speed;
 
 
 
@@ -106,6 +120,7 @@ private:
     void initPub();
 
     void GPSRawCallback(sensor_msgs::NavSatFix data_gps);
+    void stateMissionCallback(std_msgs::UInt16MultiArray msgl);
 
 
 public slots:

@@ -37,6 +37,13 @@ void WaypointControl::setPath(nav_msgs::Path path_){
    main_path = path_;
 }
 
+void WaypointControl::stopAndReset(){
+   path_idx = 1;
+   path_idx_before = 0;
+
+   publishMarker(ct_->getRobotTf().pos ,ct_->getRobotTf().pos, ct_->getRobotTf().pos);
+}
+
 
 geometry_msgs::Twist WaypointControl::calculateOut() {
    geometry_msgs::Twist output;
