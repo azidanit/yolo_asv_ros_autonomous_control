@@ -55,7 +55,7 @@
        <item row="1" column="1" colspan="2">
         <widget class="QLineEdit" name="frame_line_edit">
          <property name="text">
-          <string>/map</string>
+          <string>map</string>
          </property>
         </widget>
        </item>
@@ -70,22 +70,7 @@
         <widget class="QComboBox" name="missionComboBox">
          <item>
           <property name="text">
-           <string>All Terminal</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Terminal 3-&gt;1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Terminal 1-&gt;2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Terminal 2-&gt;3</string>
+           <string>All Mission</string>
           </property>
          </item>
         </widget>

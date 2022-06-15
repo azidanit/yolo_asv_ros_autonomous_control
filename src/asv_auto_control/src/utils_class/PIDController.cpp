@@ -1,7 +1,7 @@
 #include <utils_class/PIDController.h>
 
 PIDController::PIDController(){
-    p = 0;
+    p = 1;
     i = 0;
     d = 0;
 
@@ -40,4 +40,15 @@ void PIDController::setD(double d_){
     d = d_;
 }
 
+double PIDController::getP(){
+    return p;
+}
+
+double PIDController::getI(){
+    return i;
+}
+
+double PIDController::getD(){
+    return d;
+}
 

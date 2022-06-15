@@ -10,7 +10,9 @@ public:
     void setI(double i_); 
     void setD(double d_); 
 
-
+    double getP();
+    double getI();
+    double getD();
 
 private:
     double p, i, d;

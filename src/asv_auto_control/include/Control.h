@@ -21,6 +21,8 @@
 #include <QFile>
 #include <QTextStream>
 
+#include "utils_class/PIDController.h"
+
 #include <misi/FindKorban.h>
 #include <misi/misi.h>
 
@@ -53,12 +55,25 @@ public:
 
     ros::NodeHandle nh;
 
+    PIDController* get_pid_angle_wp_find_korban();
+    PIDController* get_pid_distance_wp_find_korban();
+
 private:
     void dummyFunction();
 
     std::mutex param_qt_mtx;
 
+    Misi* misisons[1];
     FindKorban *find_korban;
+
+    //FIND KORBAN PIDS
+    PIDController pid_angle_wp_find_korban, pid_distance_wp_find_korban;
+
+    //General PIDS
+    PIDController pid_speed_control;
+
+    ros::Subscriber gps_raw_sub;
+    ros::Publisher asv_cmd_vel_pub;
 
     //----ASV TF variable----
     tf::StampedTransform currentBoatTF;
@@ -85,6 +100,12 @@ private:
     //PATH FUNCTION
     void recordPath();
     geometry_msgs::PoseStamped globalToPose(double lat, double lon);
+
+    void initVar();
+    void initSub();
+    void initPub();
+
+    void GPSRawCallback(sensor_msgs::NavSatFix data_gps);
 
 
 public slots:

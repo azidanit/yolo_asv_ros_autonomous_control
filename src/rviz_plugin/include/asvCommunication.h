@@ -2,29 +2,29 @@
 // Created by azidanit on 10/07/20.
 //
 
-#ifndef SRC_CARCOMMUNICATION_H
-#define SRC_CARCOMMUNICATION_H
+#ifndef SRC_ASVCOMMUNICATION_H
+#define SRC_ASVCOMMUNICATION_H
 
 #include <rviz/panel.h>
-#include "ui_car_communication.h"
+#include "ui_asv_communication.h"
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <iostream>
 
 namespace Ui{
-    class carCommunication;
+    class asvCommunication;
 }
 
-class carCommunicationPanel: public rviz::Panel{
+class asvCommunicationPanel: public rviz::Panel{
 Q_OBJECT
 
 public:
-    carCommunicationPanel(QWidget* parent = 0);
+    asvCommunicationPanel(QWidget* parent = 0);
 
 public Q_SLOTS:
 
 protected:
-    Ui::carCommunication *ui_;
+    Ui::asvCommunication *ui_;
 
 private:
     ros::NodeHandle nh;
@@ -38,4 +38,4 @@ private:
 };
 
 
-#endif //SRC_CARCOMMUNICATION_H
+#endif //SRC_ASVCOMMUNICATION_H

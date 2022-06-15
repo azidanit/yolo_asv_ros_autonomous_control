@@ -48,11 +48,11 @@
     </description>
   </class>
 
-  <class name="rviz_plugin/carcommunication"
-         type="carCommunicationPanel"
+  <class name="rviz_plugin/asvcommunication"
+         type="asvCommunicationPanel"
          base_class_type="rviz::Panel">
     <description>
-      A panel widget to monitor car communication.
+      A panel widget to monitor asv communication.
     </description>
   </class>
 </library>

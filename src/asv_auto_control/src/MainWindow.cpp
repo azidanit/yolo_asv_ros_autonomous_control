@@ -33,8 +33,8 @@ void MainWindow::initUi() {
     setInformationText("NALA RESCUER CONTROL OPENED");
     setLogText(QString("app loaded succesfully"));
 
-    ui->doubleSpinBox_P->setValue(8);
-    ui->doubleSpinBox_PD->setValue(10);
+    ui->doubleSpinBox_P->setValue(0.1);
+    ui->doubleSpinBox_PD->setValue(0.1);
     ui->spinBox_Speed->setValue(250);
 
     emit boatSideChanged(ui->camera->getBoatSide());

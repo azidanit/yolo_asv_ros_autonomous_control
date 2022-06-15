@@ -62,7 +62,7 @@ qt5_wrap_ui(UIC_FILES
   ui/mission.ui
   ui/pid.ui
         ui/pixhawkSensor.ui
-        ui/car_communication.ui
+        ui/asv_communication.ui
         ui/camera_resp.ui
 )
 
@@ -84,7 +84,7 @@ set(SOURCE_FILES
         include/camera_plugin.h
         include/pid_plugin.h
         include/json.hpp
-        inlcude/ src/pixhawkSensor.cpp include/pixhawkSensor.h src/carCommunication.cpp include/carCommunication.h)
+        inlcude/ src/pixhawkSensor.cpp include/pixhawkSensor.h src/asvCommunication.cpp include/asvCommunication.h)
 
 set(LIB_NAME rviz_plugin_lib)
 add_library(${LIB_NAME} ${SOURCE_FILES} ${MOC_SOURCES} ${UIC_FILES})

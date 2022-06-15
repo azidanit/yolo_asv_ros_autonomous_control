@@ -5,13 +5,20 @@
 #include "Control.h"
 
 Control::Control(){
+    // kapal belok kiri Z = POSITIF
+    // kapal belok kanan Z = NEGATIF
 
     //init tf var
     tfListener = new tf2_ros::TransformListener(tfBuffer);
 
-    Misi* misisons[1];
-    misisons[0] = new FindKorban(this);
-    // misisons[1] = new FindKorban(this);
+    
+    // misisons[0] = new FindKorban(this);
+    find_korban = new FindKorban(this);
+    
+    
+    initVar();
+    initSub();
+    initPub();
 }
 
 Control::~Control(){
@@ -22,11 +29,35 @@ void Control::run(){
     ros::Rate rr(50);
     while (ros::ok())
     {
+        geometry_msgs::Twist out_cmd;
         listenASVTF();
+        out_cmd = find_korban->calculateOut();
+        std::cout << out_cmd << std::endl;
+
+        asv_cmd_vel_pub.publish(out_cmd);
+
         rr.sleep();
         ros::spinOnce();
     }
     
+}
+
+void Control::initVar(){
+    // find_korban->setPIDWpAngle(&pid_angle_wp_find_korban);
+    // find_korban->setPIDWpDistance(&pid_distance_wp_find_korban);
+}
+
+void Control::initSub(){
+
+    gps_raw_sub = nh.subscribe("/mavros/global_position/global",2,&Control::GPSRawCallback, this);
+}
+
+void Control::initPub(){
+    asv_cmd_vel_pub = nh.advertise<geometry_msgs::Twist>("/asv/cmd_vel",1);
+}
+
+void Control::GPSRawCallback(sensor_msgs::NavSatFix data_gps){
+    current_gps = data_gps;
 }
 
 void Control::listenASVTF(){
@@ -109,13 +140,16 @@ void Control::changeUseObstacleStop(bool val) {
 void Control::changeP(int idx, double val) {
     std::cout << "CHANGED P IN CONTROL " << idx << " " << val << std::endl;
     param_qt_mtx.lock();
-    // if(idx == 0){
-    //     pid_wp_angle.p = val;
-    // }else if(idx == 1){
-    //     pid_wp_dist.p = val;
-    // }else if(idx == 2){
-    //     pid_speed_control.p = val;
-    // }else if(idx == 3){
+    if(idx == 0){
+        pid_angle_wp_find_korban.setP(val);
+    }
+    else if(idx == 1){
+        pid_distance_wp_find_korban.setP(val);
+    }
+    else if(idx == 2){
+        pid_speed_control.setP(val);
+    }
+    //else if(idx == 3){
     //     pid_obstacle_avoidance_srf.p = val;
     // }else if(idx == 4){
     //     pid_camera_tracking.p = val;
@@ -127,12 +161,15 @@ void Control::changeP(int idx, double val) {
 
 void Control::changeI(int idx, double val) {
     param_qt_mtx.lock();
-    // if(idx == 0){
-    //     pid_wp_angle.i = val;
-    // }else if(idx == 1){
-    //     pid_wp_dist.i = val;
-    // }else if(idx == 2){
-    //     pid_speed_control.i = val;
+    if(idx == 0){
+        pid_angle_wp_find_korban.setI(val);
+    }
+    else if(idx == 1){
+        pid_distance_wp_find_korban.setI(val);
+    }
+    else if(idx == 2){
+        pid_speed_control.setI(val);
+    }
     // }else if(idx == 3){
     //     pid_obstacle_avoidance_srf.i = val;
     // }else if(idx == 4){
@@ -145,12 +182,15 @@ void Control::changeI(int idx, double val) {
 
 void Control::changeD(int idx, double val) {
     param_qt_mtx.lock();
-    // if(idx == 0){
-    //     pid_wp_angle.d = val;
-    // }else if(idx == 1){
-    //     pid_wp_dist.d = val;
-    // }else if(idx == 2){
-    //     pid_speed_control.d = val;
+    if(idx == 0){
+        pid_angle_wp_find_korban.setD(val);
+    }
+    else if(idx == 1){
+        pid_distance_wp_find_korban.setD(val);
+    }
+    else if(idx == 2){
+        pid_speed_control.setD(val);
+    }
     // }else if(idx == 3){
     //     pid_obstacle_avoidance_srf.d = val;
     // }else if(idx == 4){
@@ -252,13 +292,13 @@ void Control::recordPath(){
     while(is_path_recorded){
         // printf("masuk path record\n");
         pose.header.stamp = ros::Time::now();
-        pose.pose.position.x = currentBoatTF.getOrigin().getX();
-        pose.pose.position.y = currentBoatTF.getOrigin().getY();
-        pose.pose.position.z = currentBoatTF.getOrigin().getZ();
-        pose.pose.orientation.x = currentBoatTF.getRotation().getX();
-        pose.pose.orientation.y = currentBoatTF.getRotation().getY();
-        pose.pose.orientation.z = currentBoatTF.getRotation().getZ();
-        pose.pose.orientation.w = currentBoatTF.getRotation().getW();
+        pose.pose.position.x = transformStamped.transform.translation.x;
+        pose.pose.position.y = transformStamped.transform.translation.y;
+        pose.pose.position.z = transformStamped.transform.translation.z;
+        pose.pose.orientation.x = transformStamped.transform.rotation.x;
+        pose.pose.orientation.y = transformStamped.transform.rotation.y;
+        pose.pose.orientation.z = transformStamped.transform.rotation.z;
+        pose.pose.orientation.w = transformStamped.transform.rotation.w;
 
         path_msg.header.stamp = ros::Time::now();
         path_msg.poses.push_back(pose);
@@ -450,4 +490,12 @@ void Control::changeCritLine(int i, int cl) {
 
 void Control::changeBoatSide(QPoint **) {
 
+}
+
+PIDController* Control::get_pid_angle_wp_find_korban(){
+    return &pid_angle_wp_find_korban;
+}
+
+PIDController* Control::get_pid_distance_wp_find_korban(){
+    return &pid_distance_wp_find_korban;
 }

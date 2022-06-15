@@ -13,6 +13,11 @@ class Misi {
 public:
     // Misi(Control *ct_);
     // ~Misi();
+    std::string mission_name;
+    virtual geometry_msgs::Twist calculateOut() {geometry_msgs::Twist tw; return tw;};
+
+    // PIDController getPidDistanceWP();
+    // PIDController getPidAngleWP();
 
 private:
     // Control* ct;

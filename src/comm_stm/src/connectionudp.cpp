@@ -10,7 +10,8 @@ ConnectionUDP::ConnectionUDP(int _port_stm, int _port_pc, const char* _ip)
   this->port_pc = _port_pc;
   strcpy(this->ip_stm, _ip);
   openPORT();
-  sub_drive_system = node.subscribe("/data_to_stm", 100, &ConnectionUDP::controlCallback, this);
+  // sub_drive_system = node.subscribe("/data_to_stm", 100, &ConnectionUDP::controlCallback, this);
+  sub_drive_system = node.subscribe("/asv/cmd_vel", 100, &ConnectionUDP::controlCallback, this);
   pub_stm_state = node.advertise<comm_stm::stm_status>("/data_from_stm", 100);
     pub_stm_conn = node.advertise<std_msgs::Bool> ("/stm_connected",10);
     pub_remote_auto_state = node.advertise<std_msgs::Bool>("/remote_auto_state",10);
@@ -160,11 +161,10 @@ void ConnectionUDP::start()
 }
 void ConnectionUDP::controlCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-    motorL = motorR = msg->linear.x + 1500;
-    servoL = servoR = msg->angular.z + 1500;
+    motorL = motorR = msg->linear.x*500 + 1500;
 
-    motorL += msg->angular.z;
-    motorR -= msg->angular.z;
+    motorL += msg->angular.z *500;
+    motorR -= msg->angular.z *500;
 
     printf("MOTOR L:%d R:%d, SERVO L:%d R:%d, TEKIN L:%d R:%d\n", motorL, motorR, servoL, servoR,tekinL,tekinR);
     write_to_udp(motorL, motorR, servoL, servoR,tekinL,tekinR);

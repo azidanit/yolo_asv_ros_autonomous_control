@@ -8,21 +8,30 @@
 #include "sub_control/WaypointControl.h"
 
 class Control;
+class WaypointControl;
 
 class FindKorban : public Misi{
 public:
     FindKorban(Control *ct_);
     ~FindKorban();
 
+    geometry_msgs::Twist calculateOut();
+
+
 private:
     Control* ct;
     WaypointControl *wp_control;
 
-    void initSub();
-
     ros::Subscriber path_sub;
 
+    PIDController *pid_distance_wp, *pid_angle_wp;
+
+    bool use_camera_to_find_korban;
+
+    void initSub();
+    void initVar();
     void wpCallback(nav_msgs::Path ms_path);
+
 
 };
 
