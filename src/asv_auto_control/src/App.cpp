@@ -46,6 +46,7 @@ void App::initConnection() {
     connect(w, &MainWindow::dChanged, control, &Control::changeD, Qt::DirectConnection);
 
     connect(w, &MainWindow::speedChanged, control, &Control::changeSpeed, Qt::DirectConnection);
+    connect(w, &MainWindow::speedChangedDouble, control, &Control::changeSpeedDouble, Qt::DirectConnection);
     connect(w, &MainWindow::distanceChanged, control, &Control::changeDistance, Qt::DirectConnection);
 
     connect(w, &MainWindow::changedASVWidth, control, &Control::changeASVWidth, Qt::DirectConnection);

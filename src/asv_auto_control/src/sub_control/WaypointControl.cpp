@@ -26,6 +26,8 @@ WaypointControl::WaypointControl(Control *ct,  Misi* ms, PIDController* pid_d, P
    std::cout << "CREATED WaypoinT Control From " << ms_->mission_name << std::endl;
 
    targetMarker_pub = ct_->nh.advertise<visualization_msgs::Marker>("/waypoint_control/target_marker", 1);
+   error_angle_pub = ct_->nh.advertise<std_msgs::Float64>("/waypoint_control/error/angle", 1);
+   error_distance_pub = ct_->nh.advertise<std_msgs::Float64>("/waypoint_control/error/distance", 1);
 }
 
 WaypointControl::~WaypointControl() {
@@ -95,16 +97,15 @@ geometry_msgs::Twist WaypointControl::calculateOut() {
    error_acc_dist_path = path_error_dist + path_error_dist_before;
    std::cout << "YAW A " << angle_path << " RB " << ct_->getRobotTf().yaw << " ERROR "  << path_error_angle << "\n";
    std::cout << "ERROR D " << path_error_dist << "\n";
-   // path_controlDistanceOut = ct_->calculateErrorPID(ms_->getPidDistanceWP(), path_error_dist,
-   //                                                  path_error_dist_before, error_acc_dist_path);
-   // path_controlAngleOut = ct_->calculateErrorPID(ct_->getPidAngleWP(), path_error_angle,
-   //                                               path_error_angle_before, error_acc_angle_path);
 
    path_controlDistanceOut = pid_distance->updateError(path_error_dist);
    path_controlAngleOut = pid_angle->updateError(path_error_angle);
 
-   // path_error_dist_before = path_error_dist;
-   // path_error_angle_before = path_error_angle;
+   std_msgs::Float64 msg_err;
+   msg_err.data = path_error_angle;
+   error_angle_pub.publish(msg_err);
+   msg_err.data = path_error_dist;
+   error_distance_pub.publish(msg_err);
 
    double result = path_controlAngleOut + path_controlDistanceOut;
 

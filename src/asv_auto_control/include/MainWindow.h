@@ -96,6 +96,7 @@ signals:
     void dChanged(int, double);
 
     void speedChanged(int, int);
+    void speedChangedDouble(int, double);
     void distanceChanged(int, double);
     void pitchChanged(int, double);
 

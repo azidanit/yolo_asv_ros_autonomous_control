@@ -42,6 +42,7 @@ void Control::run(){
         }
         
         if(mission_state.data[0] != 0){
+            out_cmd.angular.z += steer_trim;
             asv_cmd_vel_pub.publish(out_cmd);
         }
         
@@ -55,6 +56,9 @@ void Control::initVar(){
     mission_state.data.push_back(0);
     mission_state.data.push_back(0);
 
+    use_speed_control = false;
+    target_constant_thrust = 0;
+    steer_trim = 0;
     // find_korban->setPIDWpAngle(&pid_angle_wp_find_korban);
     // find_korban->setPIDWpDistance(&pid_distance_wp_find_korban);
 }
@@ -124,7 +128,7 @@ void Control::resumeMission() {
 
 void Control::changeSteerTrim(int val) {
     param_qt_mtx.lock();
-    // steer_trim = val;
+    steer_trim = (float)val/1000;
     param_qt_mtx.unlock();
 }
 
@@ -136,7 +140,7 @@ void Control::changeSpeedTrim(int val) {
 
 void Control::useSpeedControl(bool val) {
     param_qt_mtx.lock();
-    // use_speed_control = val;
+    use_speed_control = val;
     param_qt_mtx.unlock();
 }
 
@@ -222,6 +226,10 @@ void Control::changeD(int idx, double val) {
 
 void Control::changeSpeed(int idx, int val) {
     // target_constant_thrust = val;
+}
+
+void Control::changeSpeedDouble(int idx, double val) {
+    target_constant_thrust = val;
 }
 
 void Control::changeDistance(int idx, double val) {
@@ -528,7 +536,10 @@ PIDController* Control::get_pid_distance_wp_find_korban(){
 }
 
 double Control::speedControlCalculate(double target){
-   return out_cmd.linear.x + pid_speed_control.updateError(target - current_asv_speed);
+    if (use_speed_control)
+        return out_cmd.linear.x + pid_speed_control.updateError(target - current_asv_speed);
+    else
+        return target_constant_thrust;
 }
 
 double Control::getCurrentASVSpeed(){

@@ -10,6 +10,7 @@
 #include "utils.hpp"
 
 #include "geometry_msgs/Twist.h"
+#include "std_msgs/Float64.h"
 #include <visualization_msgs/Marker.h>
 
 class Control;
@@ -34,7 +35,7 @@ private:
 
     PIDController *pid_distance, *pid_angle;
 
-    ros::Publisher targetMarker_pub;
+    ros::Publisher targetMarker_pub, error_angle_pub, error_distance_pub;
 
     geometry_msgs::Twist error_before, error_now;
     nav_msgs::Path left_path, right_path, main_path;

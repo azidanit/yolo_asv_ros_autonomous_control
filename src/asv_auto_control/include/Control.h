@@ -83,6 +83,8 @@ private:
 
     //Mission Var
     std_msgs::UInt16MultiArray mission_state;
+    double target_constant_thrust, steer_trim;
+    bool use_speed_control;
 
     ros::Subscriber gps_raw_sub, mission_state_control_sub;
     ros::Publisher asv_cmd_vel_pub;
@@ -148,6 +150,7 @@ public slots:
     void changeD(int, double);
 
     void changeSpeed(int, int);
+    void changeSpeedDouble(int, double);
     void changeDistance(int, double);
     void pitchChanged(int, double val);
 

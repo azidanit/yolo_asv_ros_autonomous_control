@@ -203,6 +203,7 @@ void MainWindow::initConnectionPID(){
     connect(ui->doubleSpinBox_I, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit iChanged(0, value); });
     connect(ui->doubleSpinBox_D, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit dChanged(0, value); });
     connect(ui->spinBox_Speed, static_cast<void (QSpinBox::*)(int)> (&QSpinBox::valueChanged), [=](int value){ emit speedChanged(0, value); });
+    connect(ui->doubleSpinBox_speed, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit speedChangedDouble(0, value); });
     connect(ui->doubleSpinBox_PD, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit pChanged(1, value); });
     connect(ui->doubleSpinBox_ID, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit iChanged(1, value); });
     connect(ui->doubleSpinBox_DD, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit dChanged(1, value); });
