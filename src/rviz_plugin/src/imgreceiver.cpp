@@ -5,7 +5,7 @@ ImgReceiver::ImgReceiver(): itrans(nh) {
     // moveToThread(this);
     isKilled = false;
     // qDebug() << "imgr : " << QThread::currentThreadId();
-    subs = nh.subscribe("object_image/image_raw/compressed", 1, &ImgReceiver::receiveImage, this);
+    subs = nh.subscribe("/vision/image_raw/compressed", 1, &ImgReceiver::receiveImage, this);
 
 }
 

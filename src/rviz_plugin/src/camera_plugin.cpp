@@ -14,8 +14,8 @@ CameraPanel::CameraPanel(QWidget* parent):
     connectWidget();
     initUi();
 
-    critline_pub = nh.advertise<std_msgs::Int32MultiArray>("/camera/critline",1);
-    boatside_pub = nh.advertise<geometry_msgs::PoseArray>("/camera/boatside",1);
+    critline_pub = nh.advertise<std_msgs::Int32MultiArray>("/rviz_plugin/camera/critline",1);
+    boatside_pub = nh.advertise<geometry_msgs::PoseArray>("/rviz_plugin/camera/boatside",1);
 
     std::cout << "camera plugin" << std::endl;
 }
@@ -135,7 +135,7 @@ void CameraPanel::setCritLine(){
         Q_EMIT critLineChanged(1, ui_->camera->getCritLine(1));
 
         std_msgs::Int32MultiArray msg_crt;
-        msg_crt.data.push_back(0);
+        // msg_crt.data.push_back(0);
         msg_crt.data.push_back(ui_->camera->getCritLine(1));
         msg_crt.data.push_back(ui_->camera->getCritLine(0));
         critline_pub.publish(msg_crt);

@@ -40,7 +40,7 @@ color:rgb(238, 238, 236);
 }</string>
          </property>
          <property name="text">
-          <string>CritLIne</string>
+          <string>CritLine</string>
          </property>
         </widget>
        </item>
