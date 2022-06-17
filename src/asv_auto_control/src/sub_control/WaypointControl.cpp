@@ -139,7 +139,7 @@ bool WaypointControl::isArrivedPath() {
 inline double WaypointControl::distanceLineToPoint(const geometry_msgs::Point& init, const geometry_msgs::Point& dest, const geometry_msgs::Point& curr){
    double y2Miny1 = dest.y-init.y;
    double x2Minx1 = dest.x-init.x;
-   std::cout << init << dest << curr << "\n";
+   // std::cout << init << dest << curr << "\n";
    return 10*((y2Miny1*curr.x - x2Minx1*curr.y + dest.x*init.y - dest.y*init.x)
            / sqrt(y2Miny1*y2Miny1 + x2Minx1*x2Minx1));
 }

@@ -34,6 +34,6 @@ private:
 
     void critLineCallback(std_msgs::Int32MultiArray msg);
     void personDetectionCallback(vision_msgs::BoundingBox2DArray msg);
-}
+};
 
 #endif //SRC_CAMERACONTROL_Hs

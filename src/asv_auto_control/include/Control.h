@@ -61,6 +61,8 @@ public:
 
     PIDController* get_pid_angle_wp_find_korban();
     PIDController* get_pid_distance_wp_find_korban();
+    PIDController* get_pid_x_cam_find_korban();
+    PIDController* get_pid_y_cam_find_korban();
 
     double speedControlCalculate(double target);
 
@@ -74,6 +76,7 @@ private:
 
     //FIND KORBAN PIDS
     PIDController pid_angle_wp_find_korban, pid_distance_wp_find_korban;
+    PIDController pid_x_cam_find_korban, pid_y_cam_find_korban;
 
     //General PIDS
     PIDController pid_speed_control;

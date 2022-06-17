@@ -7,9 +7,11 @@
 #include "misi/misi.h"
 
 #include "sub_control/WaypointControl.h"
+#include "sub_control/CameraControl.h"
 
 class Control;
 class WaypointControl;
+class CameraControl;
 
 class FindKorban : public Misi{
 public:
@@ -23,10 +25,12 @@ public:
 private:
     Control* ct;
     WaypointControl *wp_control;
+    CameraControl *camera_control;
 
     ros::Subscriber path_sub;
 
     PIDController *pid_distance_wp, *pid_angle_wp;
+    PIDController *pid_x_cam, *pid_y_cam;
 
     bool use_camera_to_find_korban;
 

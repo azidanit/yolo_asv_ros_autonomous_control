@@ -32,7 +32,13 @@ geometry_msgs::Twist CameraControl::calculateOut(){
 
     out_cmd.angular.z = pid_x->updateError(error_cam_x);
 
-    
+    if(obj_person_detected.boxes[0].center.y * 480 < crit_line)
+        out_cmd.linear.x = ct->speedControlCalculate(0.5);
+    else
+        out_cmd.linear.x = 0;
+        
+    return out_cmd;
+
 }
 
 

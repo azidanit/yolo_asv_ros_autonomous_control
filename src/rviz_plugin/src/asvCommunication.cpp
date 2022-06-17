@@ -37,7 +37,7 @@ void asvCommunicationPanel::sendControlCallback(const geometry_msgs::Twist& msg)
     // std::cout << "STEER RVIZ" << (int)(msg.angular.z * 1000) << std::endl;
 
     ui_->throtle_bar->setValue((int)(msg.linear.x * 1000));
-    ui_->throtle_label->setText(QString(std::to_string(msg.linear.y).c_str()));
+    ui_->throtle_label->setText(QString(std::to_string(msg.linear.x).c_str()));
 
     
     ui_->brake_bar->setValue((int)(msg.linear.x * 1000 * -1));

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1211</width>
+    <width>1219</width>
     <height>780</height>
    </rect>
   </property>
@@ -183,11 +183,17 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Pld">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -200,11 +206,17 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Ild">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -217,11 +229,17 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Dld">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -238,11 +256,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_PD">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
                <property name="singleStep">
-                <double>0.010000000000000</double>
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -255,11 +276,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_ID">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
                <property name="singleStep">
-                <double>0.010000000000000</double>
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -272,11 +296,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_DD">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
                <property name="singleStep">
-                <double>0.010000000000000</double>
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -293,8 +320,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Psp">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -307,8 +340,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Isp">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -321,8 +360,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Dsp">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -346,8 +391,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_IBr">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -360,15 +411,27 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_DBr">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_PBr">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -385,6 +448,9 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Mtp_error_ld">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
@@ -399,6 +465,9 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Distance_save">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
@@ -406,6 +475,9 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_ASV_width">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
@@ -413,6 +485,9 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="3" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_ASV_offset">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
@@ -445,11 +520,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_P">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
                <property name="singleStep">
-                <double>0.010000000000000</double>
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -462,11 +540,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_I">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
                <property name="singleStep">
-                <double>0.010000000000000</double>
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -479,11 +560,14 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_D">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
                </property>
                <property name="singleStep">
-                <double>0.010000000000000</double>
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -570,11 +654,17 @@ p, li { white-space: pre-wrap; }
             <layout class="QFormLayout" name="formLayout_9">
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Pcam">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -587,11 +677,17 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Icam">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -604,11 +700,17 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Dcam">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
                <property name="maximum">
                 <double>999.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.001000000000000</double>
                </property>
               </widget>
              </item>
@@ -625,6 +727,9 @@ p, li { white-space: pre-wrap; }
             <layout class="QFormLayout" name="formLayout_10">
              <item row="0" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Pcam_thrust">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
@@ -642,6 +747,9 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="1" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Icam_thrust">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
@@ -659,6 +767,9 @@ p, li { white-space: pre-wrap; }
              </item>
              <item row="2" column="1">
               <widget class="QDoubleSpinBox" name="doubleSpinBox_Dcam_thrust">
+               <property name="decimals">
+                <number>4</number>
+               </property>
                <property name="minimum">
                 <double>-1000.000000000000000</double>
                </property>
@@ -1447,7 +1558,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1211</width>
+     <width>1219</width>
      <height>22</height>
     </rect>
    </property>

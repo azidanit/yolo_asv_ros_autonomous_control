@@ -35,7 +35,7 @@ void Control::run(){
         if(mission_state.data[0] == 1){
             //start mission
             out_cmd = find_korban->calculateOut();
-            std::cout << out_cmd << std::endl;
+            // std::cout << out_cmd << std::endl;
         }else if(mission_state.data[0] == 0){
             //stop mission
             find_korban->stop();
@@ -174,9 +174,11 @@ void Control::changeP(int idx, double val) {
     }
     //else if(idx == 3){
     //     pid_obstacle_avoidance_srf.p = val;
-    // }else if(idx == 4){
-    //     pid_camera_tracking.p = val;
-    // }else if(idx == 5){
+    // }
+    else if(idx == 4){
+        pid_x_cam_find_korban.setP(val);
+    }
+    //else if(idx == 5){
     //     pid_camera_tracking_thrust.p = val;
     // }
     param_qt_mtx.unlock();
@@ -192,6 +194,9 @@ void Control::changeI(int idx, double val) {
     }
     else if(idx == 2){
         pid_speed_control.setI(val);
+    }
+    else if(idx == 4){
+        pid_x_cam_find_korban.setI(val);
     }
     // }else if(idx == 3){
     //     pid_obstacle_avoidance_srf.i = val;
@@ -213,6 +218,9 @@ void Control::changeD(int idx, double val) {
     }
     else if(idx == 2){
         pid_speed_control.setD(val);
+    }
+    else if(idx == 4){
+        pid_x_cam_find_korban.setD(val);
     }
     // }else if(idx == 3){
     //     pid_obstacle_avoidance_srf.d = val;
@@ -533,6 +541,14 @@ PIDController* Control::get_pid_angle_wp_find_korban(){
 
 PIDController* Control::get_pid_distance_wp_find_korban(){
     return &pid_distance_wp_find_korban;
+}
+
+PIDController* Control::get_pid_x_cam_find_korban(){
+    return &pid_x_cam_find_korban;
+}
+
+PIDController* Control::get_pid_y_cam_find_korban(){
+    return &pid_y_cam_find_korban;
 }
 
 double Control::speedControlCalculate(double target){

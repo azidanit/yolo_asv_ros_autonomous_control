@@ -9,6 +9,7 @@ FindKorban::FindKorban(Control *ct_){
     mission_name = "Find Korban";
 
     wp_control = new WaypointControl(ct_, this, pid_distance_wp, pid_angle_wp);
+    camera_control = new CameraControl(ct_, this, pid_x_cam, pid_y_cam);
 
     std::cout << "FIND KORBAN CREATED\n";
     
@@ -25,6 +26,12 @@ void FindKorban::initVar(){
     pid_angle_wp->setP(0.1);
     pid_distance_wp->setP(0.15);
 
+    pid_x_cam = ct->get_pid_x_cam_find_korban();
+    pid_y_cam = ct->get_pid_y_cam_find_korban();
+
+    pid_x_cam->setP(0.1);
+    pid_y_cam->setP(0.15);
+
     std::cout << "PID " << pid_distance_wp->getD();
     
 }
@@ -32,7 +39,17 @@ void FindKorban::initVar(){
 geometry_msgs::Twist FindKorban::calculateOut(){
     geometry_msgs::Twist out;
 
-    out = wp_control->calculateOut();
+    if(camera_control->isPersonDetected()){
+        out = camera_control->calculateOut();
+        std::cout << "CONTROLLING CAMERA\n";
+    }else{
+        out = wp_control->calculateOut();
+        out.linear.x = ct->speedControlCalculate(0.5);
+
+        std::cout << "CONTROLLING WP\n";
+
+
+    }   
     
     return out;
 }
