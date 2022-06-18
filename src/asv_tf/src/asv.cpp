@@ -9,7 +9,7 @@ ASV::ASV(char* filename_venue){
     loadFileParam(filename_venue);
     local_y = local_x = local_yaw = 0;
     gps_sub = nh.subscribe("/mavros/global_position/global", 1, &ASV::gpsCallback, this);
-    compass_sub = nh.subscribe("/mavros/global_position/cmp_hdg", 1, &ASV::compassCallback, this);
+    compass_sub = nh.subscribe("/mavros/global_position/compass_hdg", 1, &ASV::compassCallback, this);
     // mag_sub = nh.subscribe("/mavros/imu/mag", 1, &ASV::magCallback, this);
     imu_sub = nh.subscribe("/mavros/imu/data", 1, &ASV::imuCallback, this);
 }
@@ -52,7 +52,7 @@ void ASV::update() {
 }
 
 void ASV::globalToLocal(double lat_, double long_){
-    local_y = LON_TO_METER * (long_center - long_) * -1;
+    local_y = LON_TO_METER * (long_center - long_);
     local_x = LAT_TO_METER * (lat_center - lat_) * -1;
 }
 
@@ -66,7 +66,7 @@ void ASV::magCallback(const sensor_msgs::MagneticField::ConstPtr& msg){
 }
 
 void ASV::compassCallback(std_msgs::Float64 msg) {
-    local_yaw = msg.data;
+    local_yaw = -msg.data;
     local_yaw *= M_PI/180;
 }
 

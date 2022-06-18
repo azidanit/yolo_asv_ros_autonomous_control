@@ -3,9 +3,10 @@
 <!--    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />-->
 <!--    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />-->
 
-    <node name="asv_tf2_broadcaster" pkg="asv_tf" type="asv_tf_node" args="map_danau8" output="screen" />
+    <!-- <node name="asv_tf2_broadcaster" pkg="asv_tf" type="asv_tf_node" args="map_danau8" output="screen" /> -->
+    <node name="asv_tf2_broadcaster" pkg="asv_tf" type="asv_tf_node" args="robotika" output="screen" />
 
     <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find asv_tf)/rviz/rviz.rviz" />
 
-    <node name="map_image" pkg="map_image" type="map_image_node" args="map_danau8 0 0"  output="screen" />
+    <node name="map_image" pkg="map_image" type="map_image_node" args="robotika 0 0"  output="screen" />
 </launch>
