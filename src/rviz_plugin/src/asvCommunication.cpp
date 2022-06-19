@@ -8,8 +8,13 @@ asvCommunicationPanel::asvCommunicationPanel(QWidget *parent):
         rviz::Panel(parent), ui_(new Ui::asvCommunication()){
 
     ui_->setupUi(this);
+
+    get_msg_before = false;
+
     initSubscriber();
     initUi();
+
+    
 }
 
 void asvCommunicationPanel::initUi(){
@@ -44,6 +49,17 @@ void asvCommunicationPanel::sendControlCallback(const geometry_msgs::Twist& msg)
     ui_->brake_label->setText(QString(std::to_string(msg.linear.z).c_str()));
 
     ui_->steering_label->setText(QString(std::to_string(msg.angular.z).c_str()));
+
+    // background-color: green;\ncolor: white;
+    if(get_msg_before){
+        ui_->label->setStyleSheet("background-color: green;\ncolor: white;");
+        get_msg_before = false;
+    }else{
+        ui_->label->setStyleSheet("background-color: white;\ncolor: black;");
+        get_msg_before = true;
+    }
+    
+
 }
 
 #include <pluginlib/class_list_macros.h>

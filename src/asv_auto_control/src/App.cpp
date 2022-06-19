@@ -27,6 +27,7 @@ void App::initConnection() {
     connect(w, &MainWindow::startMissionClicked, control, &Control::startMission, Qt::DirectConnection);
     connect(w, &MainWindow::resumeMissionClicked, control, &Control::resumeMission, Qt::DirectConnection);
     connect(w, &MainWindow::stopMissionClicked, control, &Control::stopMission, Qt::DirectConnection);
+    connect(w, &MainWindow::testMotorClicked, control, &Control::testMotor, Qt::DirectConnection);
 
     connect(w, &MainWindow::steerTrimChanged, control, &Control::changeSteerTrim, Qt::DirectConnection);
     connect(w, &MainWindow::speedTrimChanged, control, &Control::changeSpeedTrim, Qt::DirectConnection);

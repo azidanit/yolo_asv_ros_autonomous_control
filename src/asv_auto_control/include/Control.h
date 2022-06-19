@@ -83,10 +83,11 @@ private:
 
     //ASV General Cmd
     geometry_msgs::Twist out_cmd;
+    bool is_test_motor;
 
     //Mission Var
     std_msgs::UInt16MultiArray mission_state;
-    double target_constant_thrust, steer_trim;
+    double target_constant_thrust, steer_trim, thrust_trim;
     bool use_speed_control;
 
     ros::Subscriber gps_raw_sub, mission_state_control_sub;
@@ -133,6 +134,7 @@ public slots:
     void startMission();
     void stopMission();
     void resumeMission();
+    void testMotor(bool);
 
     void changeSteerTrim(int);
     void changeSpeedTrim(int);

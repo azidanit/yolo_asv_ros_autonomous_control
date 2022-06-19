@@ -30,6 +30,8 @@ private:
     ros::NodeHandle nh;
     ros::Subscriber send_ctrl_subs, get_feedback_subs;
 
+    bool get_msg_before;
+
     void initSubscriber();
     void initUi();
     void sendControlCallback(const geometry_msgs::Twist& msg);

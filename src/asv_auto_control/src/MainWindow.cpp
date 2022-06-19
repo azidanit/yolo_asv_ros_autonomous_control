@@ -44,6 +44,24 @@ void MainWindow::initUi() {
 }
 
 void MainWindow::initConnection() {
+    
+    connect(ui->pushButton_test_motor, &QPushButton::clicked,
+        [=](){
+            std::cout << "Test Motor Clicked" << std::endl;
+
+            if(ui->pushButton_test_motor->text() == "Test Motor"){
+                std::cout << "STARTT Test Motor" << std::endl;
+                ui->pushButton_test_motor->setText("STOP Test Motor");
+                ui->pushButton_test_motor->setStyleSheet("background-color: red;");
+                emit  testMotorClicked(true);
+            }else{
+                std::cout << "STOPP Test Motor" << std::endl;
+                ui->pushButton_test_motor->setText("Test Motor");
+                ui->pushButton_test_motor->setStyleSheet("background-color: orange;");
+                emit  testMotorClicked(false);
+            }
+        });
+
     connect(ui->startmanualButton, &QPushButton::clicked,
             [=](){
                 std::cout << "Start Mission clicked" << std::endl;

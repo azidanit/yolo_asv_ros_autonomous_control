@@ -156,6 +156,10 @@
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">background-color: green;
+color: white;</string>
+       </property>
        <property name="text">
         <string>Data to ASV</string>
        </property>
@@ -176,11 +180,11 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: green;
+        <string notr="true">background-color: orange;
 color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>Korban Ditemukan</string>
+        <string>---</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

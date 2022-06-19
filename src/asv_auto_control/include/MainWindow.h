@@ -76,7 +76,8 @@ signals:
     void startMissionClicked();
     void stopMissionClicked();
     void resumeMissionClicked();
-
+    void testMotorClicked(bool);
+    
     void speedTrimChanged(int);
     void steerTrimChanged(int);
     void compassOffsetChanged(double);

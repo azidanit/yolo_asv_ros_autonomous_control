@@ -6,24 +6,77 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>384</width>
-    <height>533</height>
+    <width>336</width>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Mission</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="17" column="1">
-    <widget class="QLineEdit" name="missionStatus">
-     <property name="maximumSize">
+   <item row="0" column="0">
+    <widget class="QPushButton" name="startButton">
+     <property name="minimumSize">
       <size>
-       <width>16777215</width>
+       <width>0</width>
        <height>44</height>
       </size>
      </property>
-     <property name="readOnly">
-      <bool>true</bool>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(5, 96, 8);</string>
+     </property>
+     <property name="text">
+      <string>START</string>
+     </property>
+    </widget>
+   </item>
+   <item row="22" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string> Seq:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="setSeqButton">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(32, 74, 135);</string>
+       </property>
+       <property name="text">
+        <string>Set</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="1">
+    <widget class="QSpinBox" name="startAtspinBox">
+     <property name="maximumSize">
+      <size>
+       <width>16677</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="maximum">
+      <number>99999</number>
+     </property>
+    </widget>
+   </item>
+   <item row="16" column="0" colspan="4">
+    <widget class="ManualControl" name="manual" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>100</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>9999</width>
+       <height>9999</height>
+      </size>
      </property>
     </widget>
    </item>
@@ -31,6 +84,12 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLCDNumber" name="missionLcd">
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>25</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>11</pointsize>
@@ -43,6 +102,12 @@
      </item>
      <item>
       <widget class="QLCDNumber" name="wpLcd">
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>25</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <pointsize>11</pointsize>
@@ -55,7 +120,47 @@
      </item>
     </layout>
    </item>
-   <item row="3" column="0">
+   <item row="20" column="0">
+    <widget class="QLineEdit" name="dataToSTM">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="stopButton">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>44</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(164, 0, 0);
+color: rgb(238, 238, 236);</string>
+     </property>
+     <property name="text">
+      <string>STOP</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QPushButton" name="rth_pushButton">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(57, 196, 138);</string>
+     </property>
+     <property name="text">
+      <string>QUICK RTH</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="nextWPButton">
@@ -88,6 +193,24 @@
       </widget>
      </item>
      <item>
+      <widget class="QLCDNumber" name="actionLcd">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="digitCount">
+        <number>3</number>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="continueButton">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(57, 196, 138);</string>
@@ -99,82 +222,7 @@
      </item>
     </layout>
    </item>
-   <item row="12" column="0" colspan="2">
-    <widget class="QPushButton" name="rth_pushButton">
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(57, 196, 138);</string>
-     </property>
-     <property name="text">
-      <string>QUICK RTH</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QPushButton" name="stopButton">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>44</height>
-      </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(164, 0, 0);
-color: rgb(238, 238, 236);</string>
-     </property>
-     <property name="text">
-      <string>STOP</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QSpinBox" name="startAtspinBox">
-     <property name="maximum">
-      <number>99999</number>
-     </property>
-    </widget>
-   </item>
-   <item row="13" column="0" colspan="3">
-    <widget class="ManualControl" name="manual" native="true">
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>200</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>9999</width>
-       <height>9999</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="0">
-    <widget class="QLineEdit" name="dataToSTM">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>44</height>
-      </size>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLCDNumber" name="actionLcd">
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-     <property name="digitCount">
-      <number>3</number>
-     </property>
-    </widget>
-   </item>
-   <item row="19" column="1">
+   <item row="22" column="1">
     <widget class="QLineEdit" name="editMissionSeq">
      <property name="maximumSize">
       <size>
@@ -184,40 +232,16 @@ color: rgb(238, 238, 236);</string>
      </property>
     </widget>
    </item>
-   <item row="19" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string> Seq:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="setSeqButton">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(32, 74, 135);</string>
-       </property>
-       <property name="text">
-        <string>Set</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="0">
-    <widget class="QPushButton" name="startButton">
-     <property name="minimumSize">
+   <item row="20" column="1">
+    <widget class="QLineEdit" name="missionStatus">
+     <property name="maximumSize">
       <size>
-       <width>0</width>
+       <width>16777215</width>
        <height>44</height>
       </size>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(5, 96, 8);</string>
-     </property>
-     <property name="text">
-      <string>START</string>
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

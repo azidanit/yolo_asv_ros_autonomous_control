@@ -943,6 +943,20 @@ color: rgb(238, 238, 236);</string>
              </property>
             </widget>
            </item>
+           <item row="2" column="0">
+            <layout class="QGridLayout" name="gridLayout_9">
+             <item row="0" column="0">
+              <widget class="QPushButton" name="pushButton_test_motor">
+               <property name="styleSheet">
+                <string notr="true">background-color: orange;</string>
+               </property>
+               <property name="text">
+                <string>Test Motor</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
           </layout>
          </widget>
         </item>

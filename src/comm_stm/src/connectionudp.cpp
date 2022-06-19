@@ -196,8 +196,8 @@ void ConnectionUDP::write_to_udp(int motor_L, int motor_R, int servo_L, int serv
     serial_tx[0] = 'i';
     serial_tx[1] = 't';
     serial_tx[2] = 's';
-    memcpy(serial_tx + 3, &motorL_, 2);
-    memcpy(serial_tx + 5, & motorR_, 2);
+    memcpy(serial_tx + 3, &motorR_, 2);
+    memcpy(serial_tx + 5, & motorL_, 2);
     memcpy(serial_tx + 7, &servoR_, 2);
     memcpy(serial_tx + 9, &servoL_, 2);
     memcpy(serial_tx + 11, &tekinR_, 2);

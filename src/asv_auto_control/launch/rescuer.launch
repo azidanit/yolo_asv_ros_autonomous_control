@@ -2,7 +2,7 @@
     <include file="$(find asv_tf)/launch/start_asv_tf.launch"></include>
 
 
-    <node name="asv_auto_main_node" pkg="asv_auto_control" type="asv_auto_control_node" args="robotika" output="screen">
+    <node name="asv_auto_main_node" pkg="asv_auto_control" type="asv_auto_control_node" args="map_danau8" output="screen">
         <rosparam file="$(find asv_auto_control)/config/frames.yaml"/>
     </node>
 

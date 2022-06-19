@@ -39,12 +39,21 @@ void Control::run(){
         }else if(mission_state.data[0] == 0){
             //stop mission
             find_korban->stop();
+
+            if(is_test_motor){
+                out_cmd.linear.x = thrust_trim;
+                out_cmd.angular.z = steer_trim;
+                asv_cmd_vel_pub.publish(out_cmd);
+            }
         }
         
         if(mission_state.data[0] != 0){
             out_cmd.angular.z += steer_trim;
+            // std::cout << "SINIII\n";
             asv_cmd_vel_pub.publish(out_cmd);
         }
+
+        
         
         rr.sleep();
         ros::spinOnce();
@@ -61,6 +70,7 @@ void Control::initVar(){
     steer_trim = 0;
     // find_korban->setPIDWpAngle(&pid_angle_wp_find_korban);
     // find_korban->setPIDWpDistance(&pid_distance_wp_find_korban);
+    is_test_motor = false;
 }
 
 void Control::initSub(){
@@ -134,7 +144,7 @@ void Control::changeSteerTrim(int val) {
 
 void Control::changeSpeedTrim(int val) {
     param_qt_mtx.lock();
-    // thrust_trim = val;
+    thrust_trim = (float)val/1000;
     param_qt_mtx.unlock();
 }
 
@@ -560,4 +570,10 @@ double Control::speedControlCalculate(double target){
 
 double Control::getCurrentASVSpeed(){
     return current_asv_speed;
+}
+
+void Control::testMotor(bool status){
+    param_qt_mtx.lock();
+    is_test_motor = status;
+    param_qt_mtx.unlock();
 }

@@ -58,7 +58,7 @@ void MissionPanel::initConnection(){
             ui->stopButton->setEnabled(true);
             // ui->startButton->setDisabled(true);
             // ui->setSeqButton->setDisabled(true);
-            this->startMission(3);
+            // this->startMission(3);
         }
     );
 
