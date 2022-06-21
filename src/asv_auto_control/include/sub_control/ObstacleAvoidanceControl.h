@@ -4,6 +4,9 @@
 #include "Control.h"
 #include "misi/misi.h"
 
+#include <vector>
+
+
 #include <std_msgs/Int32MultiArray.h>
 
 #define SRF_NUMBER 3
@@ -27,7 +30,7 @@ private:
     ros::Subscriber srf_sub;
     ros::Publisher srf_obj_pub;
 
-    int srf_angle[SRF_NUMBER];
+    int srf_data_angle[SRF_NUMBER];
     int srf_data[SRF_NUMBER];
     
     int obs_gap_confident [SRF_NUMBER];
@@ -43,6 +46,6 @@ private:
     void srfCallback(std_msgs::Int32MultiArray msg_);
 
 
-}
+};
 
 #endif //SRC_OBSTACLEAVOIDANCECONTROL_H

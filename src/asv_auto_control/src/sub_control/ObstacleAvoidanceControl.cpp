@@ -11,9 +11,9 @@ ObstacleAvoidanceControl::ObstacleAvoidanceControl(Control* ct_, Misi* ms_, PIDC
     threshold_distance = 130;
     threshold_confident = 2;
 
-    srf_angle[0] = -20;
-    srf_angle[1] = 0;
-    srf_angle[2] = 20;
+    srf_data_angle[0] = -20;
+    srf_data_angle[1] = 0;
+    srf_data_angle[2] = 20;
 
     for (int i = 0; i < SRF_NUMBER; i++){
         srf_data[i] = 9999;
@@ -31,6 +31,8 @@ ObstacleAvoidanceControl::~ObstacleAvoidanceControl(){
 
 geometry_msgs::Twist ObstacleAvoidanceControl::calculateOut(){
     geometry_msgs::Twist out_cmd;
+    out_cmd.linear.x = 0;
+    out_cmd.angular.z = 0;
 
     double error = 0;
 
@@ -53,6 +55,8 @@ geometry_msgs::Twist ObstacleAvoidanceControl::calculateOut(){
         all_early_gap_free &= early_free_gap[i];
     } 
 
+    std::vector<std::pair<int, int> > sorted_distance;
+    sorted_distance = ct->sortArr(srf_data,SRF_NUMBER);
     if (!any_gap){
         //mundur tidak ada jalan di depan
         out_cmd.linear.x = - ct->speedControlCalculate(-1);
@@ -63,16 +67,28 @@ geometry_msgs::Twist ObstacleAvoidanceControl::calculateOut(){
             return out_cmd;
         }else{
             //early obstacle control
+            double error_mpx = 150 -  sorted_distance[0].first;
+            int choosen_gap_idx = sorted_distance[SRF_NUMBER-1].second;
+            int avoided_gap_idx = sorted_distance[0].second;
+            int steer_angle = srf_data_angle[choosen_gap_idx] - srf_data_angle[avoided_gap_idx]/2;
+            std::cout << error_mpx << " " <<  choosen_gap_idx << " " << steer_angle << "\n" ;
+
+            out_cmd.linear.x = ct->speedControlCalculate(1);
+            out_cmd.angular.z = -((steer_angle * (error_mpx/4)) / 1000) * pid_angle->getP();
+        
+            return out_cmd;
         }
     }else{ //obstacle dekat
-        double error_mpx = 150 -  sorted_distance[0][1];
-        int choosen_gap_idx = sorted_distance[-1][0];
-        int avoided_gap_idx = sorted_distance[0][0];
-        int steer_angle = srf_data_angle[choosen_gap_idx] - self.srf_data_angle[avoided_gap_idx]/2;
+        double error_mpx = 150 -  sorted_distance[0].first;
+        int choosen_gap_idx = sorted_distance[SRF_NUMBER-1].second;
+        int avoided_gap_idx = sorted_distance[0].second;
+        int steer_angle = srf_data_angle[choosen_gap_idx] - srf_data_angle[avoided_gap_idx]/2;
         std::cout << error_mpx << " " <<  choosen_gap_idx << " " << steer_angle << "\n" ;
 
         out_cmd.linear.x = ct->speedControlCalculate(1);
-        out_cmd.angular.z = ((steer_angle * (error_mpx/4)) / 1000) * pid_angle->getP();
+        out_cmd.angular.z = -((steer_angle * (error_mpx/4)) / 1000) * pid_angle->getP();
+
+        return out_cmd;
     }
 }
 

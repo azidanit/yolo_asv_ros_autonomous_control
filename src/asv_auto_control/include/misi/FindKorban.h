@@ -31,6 +31,7 @@ private:
 
     PIDController *pid_distance_wp, *pid_angle_wp;
     PIDController *pid_x_cam, *pid_y_cam;
+    // PIDController *pid_angle_obs, *pid_thrust_obs;
 
     bool use_camera_to_find_korban;
 

@@ -35,6 +35,23 @@ void Control::run(){
         if(mission_state.data[0] == 1){
             //start mission
             out_cmd = find_korban->calculateOut();
+            if(out_cmd.linear.z != 1){ //bukan control camera
+                mission_status_msg.data = "Waypoint Control";
+                mission_status_string_pub.publish(mission_status_msg);
+                // std::cout << "bukan control camera\n";
+                geometry_msgs::Twist obs_cmd;
+                obs_cmd = obstacle_avoid_control->calculateOut();
+                // std::cout << "bukan control camera " << obs_cmd << "\n";
+                if(obs_cmd.linear.x != 0 && obs_cmd.angular.z != 0){
+                    out_cmd = obs_cmd;
+                    std::cout << "MENHINDARRR\n";
+                    mission_status_msg.data = "SRF Control";
+                    mission_status_string_pub.publish(mission_status_msg);
+                }
+            }else{
+                mission_status_msg.data = "Camera Control";
+                mission_status_string_pub.publish(mission_status_msg);
+            }
             // std::cout << out_cmd << std::endl;
         }else if(mission_state.data[0] == 0){
             //stop mission
@@ -71,6 +88,8 @@ void Control::initVar(){
     // find_korban->setPIDWpAngle(&pid_angle_wp_find_korban);
     // find_korban->setPIDWpDistance(&pid_distance_wp_find_korban);
     is_test_motor = false;
+
+    obstacle_avoid_control = new ObstacleAvoidanceControl(this, find_korban, &pid_angle_obs_avoid, &pid_thrust_obs_avoid);
 }
 
 void Control::initSub(){
@@ -87,6 +106,10 @@ void Control::initPub(){
     path_pub = nh.advertise<nav_msgs::Path>("/path_asv", 1);
     global_path_pub = nh.advertise<nav_msgs::Path>("/path_asv_global", 1);
     loaded_path_pub = nh.advertise<nav_msgs::Path>("/path_asv_loaded", 1);
+    
+    
+    mission_status_string_pub = nh.advertise<std_msgs::String>("/rviz_plugin/missin_status", 1);
+
 }
 
 void Control::GPSRawCallback(sensor_msgs::NavSatFix data_gps){
@@ -182,15 +205,15 @@ void Control::changeP(int idx, double val) {
     else if(idx == 2){
         pid_speed_control.setP(val);
     }
-    //else if(idx == 3){
-    //     pid_obstacle_avoidance_srf.p = val;
-    // }
+    else if(idx == 3){
+        pid_angle_obs_avoid.setP(val);
+    }
     else if(idx == 4){
         pid_x_cam_find_korban.setP(val);
     }
-    //else if(idx == 5){
-    //     pid_camera_tracking_thrust.p = val;
-    // }
+    else if(idx == 5){
+        pid_y_cam_find_korban.setP(val);
+    }
     param_qt_mtx.unlock();
 }
 
@@ -205,16 +228,15 @@ void Control::changeI(int idx, double val) {
     else if(idx == 2){
         pid_speed_control.setI(val);
     }
+    else if(idx == 3){
+        pid_angle_obs_avoid.setI(val);
+    }
     else if(idx == 4){
         pid_x_cam_find_korban.setI(val);
     }
-    // }else if(idx == 3){
-    //     pid_obstacle_avoidance_srf.i = val;
-    // }else if(idx == 4){
-    //     pid_camera_tracking.i = val;
-    // }else if(idx == 5){
-    //     pid_camera_tracking_thrust.i = val;
-    // }
+    else if(idx == 5){
+        pid_y_cam_find_korban.setI(val);
+    }
     param_qt_mtx.unlock();
 }
 
@@ -228,17 +250,15 @@ void Control::changeD(int idx, double val) {
     }
     else if(idx == 2){
         pid_speed_control.setD(val);
+    }else if(idx == 3){
+        pid_angle_obs_avoid.setD(val);
     }
     else if(idx == 4){
         pid_x_cam_find_korban.setD(val);
     }
-    // }else if(idx == 3){
-    //     pid_obstacle_avoidance_srf.d = val;
-    // }else if(idx == 4){
-    //     pid_camera_tracking.d = val;
-    // }else if(idx == 5){
-    //     pid_camera_tracking_thrust.d = val;
-    // }
+    else if(idx == 5){
+        pid_y_cam_find_korban.setD(val);
+    }
     param_qt_mtx.unlock();
 }
 
@@ -561,6 +581,16 @@ PIDController* Control::get_pid_y_cam_find_korban(){
     return &pid_y_cam_find_korban;
 }
 
+PIDController* Control::get_pid_angle_obs_avoid(){
+    return &pid_angle_obs_avoid;
+}
+
+PIDController* Control::get_pid_thrust_obs_avoid(){
+    return &pid_thrust_obs_avoid;
+}
+
+
+
 double Control::speedControlCalculate(double target){
     if (use_speed_control)
         return out_cmd.linear.x + pid_speed_control.updateError(target - current_asv_speed);
@@ -576,4 +606,33 @@ void Control::testMotor(bool status){
     param_qt_mtx.lock();
     is_test_motor = status;
     param_qt_mtx.unlock();
+}
+
+
+std::vector<std::pair<int, int> > Control::sortArr(int arr[], int n){
+
+    // Vector to store element
+    // with respective present index
+    std::vector<std::pair<int, int> > vp;
+
+    // Inserting element in pair vector
+    // to keep track of previous indexes
+    for (int i = 0; i < n; ++i) {
+        vp.push_back(std::make_pair(arr[i], i));
+    }
+
+    // Sorting pair vector
+    sort(vp.begin(), vp.end());
+
+    // Displaying sorted element
+    // with previous indexes
+    // corresponding to each element
+    // cout << "Element\t"
+    //     << "index" << endl;
+    // for (int i = 0; i < vp.size(); i++) {
+    //     cout << vp[i].first << "\t"
+    //         << vp[i].second << endl;
+    // }
+
+    return vp;
 }

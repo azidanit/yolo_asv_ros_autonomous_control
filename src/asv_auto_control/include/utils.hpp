@@ -3,6 +3,9 @@
 
 #include <math.h>
 #include <ros/ros.h>
+#include <vector>
+#include <numeric>      // std::iota
+#include <algorithm>    // std::sort, std::stable_sort
 
 namespace utils{
     inline double rosRateToSec(ros::Rate rr_){
@@ -159,6 +162,8 @@ namespace utils{
         //    std::cout << "POINT TO LINE " << d << " angle " << radToDeg(angle) << " m " << m << std::endl;
         return d;
     }
+
+
 
 
 }
