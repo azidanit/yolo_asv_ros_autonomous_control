@@ -93,6 +93,11 @@ private:
     geometry_msgs::Twist out_cmd;
     bool is_test_motor;
 
+    //EMA OUT THRUSTER
+    double alpha_ema;
+    geometry_msgs::Twist out_cmd_ema, out_cmd_ema_before;
+
+
     //Mission Var
     std_msgs::UInt16MultiArray mission_state;
     double target_constant_thrust, steer_trim, thrust_trim;
@@ -137,6 +142,7 @@ private:
 
     void GPSRawCallback(sensor_msgs::NavSatFix data_gps);
     void stateMissionCallback(std_msgs::UInt16MultiArray msgl);
+    void sendCmdVel();
 
 
 public slots:

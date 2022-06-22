@@ -228,6 +228,7 @@ void MainWindow::initConnectionPID(){
     connect(ui->doubleSpinBox_Psp, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit pChanged(2, value); });
     connect(ui->doubleSpinBox_Isp, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit iChanged(2, value); });
     connect(ui->doubleSpinBox_Dsp, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit dChanged(2, value); });
+    connect(ui->doubleSpinBox_alpha_ema, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit speedChangedDouble(-1, value); });
     connect(ui->doubleSpinBox_Pld, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit pChanged(3, value); });
     connect(ui->doubleSpinBox_Ild, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit iChanged(3, value); });
     connect(ui->doubleSpinBox_Dld, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit dChanged(3, value); });

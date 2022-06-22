@@ -60,14 +60,15 @@ void Control::run(){
             if(is_test_motor){
                 out_cmd.linear.x = thrust_trim;
                 out_cmd.angular.z = steer_trim;
-                asv_cmd_vel_pub.publish(out_cmd);
+                sendCmdVel();
+
             }
         }
         
         if(mission_state.data[0] != 0){
             out_cmd.angular.z += steer_trim;
             // std::cout << "SINIII\n";
-            asv_cmd_vel_pub.publish(out_cmd);
+            sendCmdVel();
         }
 
         
@@ -88,6 +89,8 @@ void Control::initVar(){
     // find_korban->setPIDWpAngle(&pid_angle_wp_find_korban);
     // find_korban->setPIDWpDistance(&pid_distance_wp_find_korban);
     is_test_motor = false;
+
+    alpha_ema = 0.1;
 
     obstacle_avoid_control = new ObstacleAvoidanceControl(this, find_korban, &pid_angle_obs_avoid, &pid_thrust_obs_avoid);
 }
@@ -145,6 +148,18 @@ void Control::listenASVTF(){
 
 TF_simplified Control::getRobotTf(){
     return ASV_TF;
+}
+
+void Control::sendCmdVel(){
+    // val_out = (alpha_ema * value_cur) + (1-alpha_ema) * value_before;
+    out_cmd_ema.angular.z =  (alpha_ema * out_cmd.angular.z) + (1-alpha_ema) * out_cmd_ema_before.angular.z;
+    out_cmd_ema.linear.x =  (alpha_ema * out_cmd.linear.x) + (1-alpha_ema) * out_cmd_ema_before.linear.x;
+    
+    asv_cmd_vel_pub.publish(out_cmd_ema);
+
+    out_cmd_ema_before.angular.z = out_cmd_ema.angular.z;
+    out_cmd_ema_before.linear.x = out_cmd_ema.linear.x;
+
 }
 
 void Control::startMission() {
@@ -267,7 +282,13 @@ void Control::changeSpeed(int idx, int val) {
 }
 
 void Control::changeSpeedDouble(int idx, double val) {
-    target_constant_thrust = val;
+    param_qt_mtx.lock();
+    if(idx == 0)
+        target_constant_thrust = val;
+    else if(idx == -1)
+        alpha_ema = val;
+
+    param_qt_mtx.unlock();
 }
 
 void Control::changeDistance(int idx, double val) {

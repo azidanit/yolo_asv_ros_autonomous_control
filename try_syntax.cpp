@@ -35,13 +35,35 @@ vector<pair<int, int> > sortArr(int arr[], int n)
 }
 
 int main(){
-    vector<pair<int, int> > sorter_arr;
-    int arr[] = { 2, 5, 3, 7, 1 };
-    int n = sizeof(arr) / sizeof(arr[0]);
-    sorter_arr = sortArr(arr, n);
+    // vector<pair<int, int> > sorter_arr;
+    // int arr[] = { 2, 5, 3, 7, 1 };
+    // int n = sizeof(arr) / sizeof(arr[0]);
+    // sorter_arr = sortArr(arr, n);
 
-    std::cout << sorter_arr[0].first << " " << sorter_arr[0].second << "\n";
+    // std::cout << sorter_arr[0].first << " " << sorter_arr[0].second << "\n";
     
-    std::cout << (2 < 5 && 5 < 8) << " TF " << (2 < 9 && 9 < 8) << "\n";
+    // std::cout << (2 < 5 && 5 < 8) << " TF " << (2 < 9 && 9 < 8) << "\n";
+    double value_cur = 0;
+    double value_before = 0;
+
+    double alpha = 0.3;
+
+    double val_out = 0;
+
+    while(true){
+        cin >> value_cur;
+        if(value_cur == -9999)
+            break;
+
+        cout << "INPUT NEW VAL : " << value_cur << "\n";
+
+        val_out = (alpha * value_cur) + (1-alpha) * value_before;
+        cout << "OUT       VAL : " << val_out << "\n";
+
+        value_before = val_out;
+
+
+    }
+
     return 0;
 }
