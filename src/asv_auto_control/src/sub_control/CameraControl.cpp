@@ -7,8 +7,12 @@ CameraControl::CameraControl(Control* ct_, Misi* ms_, PIDController* pid_x_, PID
 
     is_person_detected = false;
 
-    confident_threshold = 30;
+    confident_threshold = 60;
     confident_counter = 0;
+
+    try_rotate_in_position = 1;
+
+    crit_line = 0.5;
 
     initSub();
 }
@@ -30,11 +34,31 @@ bool CameraControl::isPersonDetected(){
 geometry_msgs::Twist CameraControl::calculateOut(){
     geometry_msgs::Twist out_cmd;
 
-    double error_cam_x = 0.5 - obj_person_detected.boxes[0].center.x;
-    double error_cam_y = crit_line - obj_person_detected.boxes[0].center.y;
+    if(obj_person_detected.boxes.size()){
+        double error_cam_x = 0.5 - obj_person_detected.boxes[0].center.x;
+        double error_cam_y = crit_line - obj_person_detected.boxes[0].center.y;
 
-    out_cmd.angular.z = pid_x->updateError(error_cam_x);
-    out_cmd.linear.x = pid_y->updateError(error_cam_y);        
+        out_cmd.angular.z = pid_x->updateError(error_cam_x);
+        out_cmd.linear.x = pid_y->updateError(error_cam_y);    
+    }else if(confident_counter < confident_threshold){//sebelumnya ada korban
+        out_cmd.angular.z = 0;
+        out_cmd.linear.x = 0;
+        std::cout << "MENUNGGU KORBBAN GLITC " << "\n";
+
+    }else if(try_rotate_in_position){ //try rotate to find korban
+        out_cmd.angular.z = 0.3;
+        out_cmd.linear.x = 0;
+        if(start_angle == NOT_CONDUCTED)
+            start_angle = ct->getRobotTf().yaw;
+        if(start_angle > ct->getRobotTf().yaw  && ct->getRobotTf().yaw > (start_angle - (M_PI/18)) ){
+            try_rotate_in_position--;
+        }
+
+        std::cout << "ROTATING UNTIL " << start_angle << "\n";
+    }else{
+
+    }
+
 
     return out_cmd;
 
@@ -43,8 +67,8 @@ geometry_msgs::Twist CameraControl::calculateOut(){
 
 void CameraControl::critLineCallback(std_msgs::Int32MultiArray msg){
     if(msg.data.size() > 1){
-        crit_line = msg.data[0];
-        horizon = msg.data[1];
+        crit_line = msg.data[0] / 240.0;
+        horizon = msg.data[1] / 240.0;
 
         std::cout << "SET CRITLINE AND HORIZON\n";
     }
@@ -57,8 +81,11 @@ void CameraControl::personDetectionCallback(vision_msgs::BoundingBox2DArray msg)
         last_obj_person_detected = obj_person_detected;
         confident_counter = 0;
         is_person_detected = true;
+
+        try_rotate_in_position = 1;
+        start_angle = NOT_CONDUCTED;
     }else{
-        if(confident_counter > confident_threshold){
+        if(confident_counter > confident_threshold && !try_rotate_in_position){
             is_person_detected = false;
         }else{
             confident_counter++;

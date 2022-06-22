@@ -11,6 +11,9 @@ Panels:
         - /InteractiveMarkers1
         - /Marker1
         - /Marker2
+        - /wp_marker_target1
+        - /path_asv1
+        - /path_asv_loaded1
       Splitter Ratio: 0.5
     Tree Height: 220
   - Class: rviz/Selection
@@ -84,17 +87,7 @@ Visualization Manager:
           Value: true
         asv/odom:
           Value: true
-        base_link:
-          Value: true
-        base_link_frd:
-          Value: true
         map:
-          Value: true
-        map_ned:
-          Value: true
-        odom:
-          Value: true
-        odom_ned:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -107,8 +100,6 @@ Visualization Manager:
           asv/odom:
             asv/base_link:
               {}
-          map_ned:
-            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -181,7 +172,7 @@ Visualization Manager:
     - Class: rviz/Marker
       Enabled: true
       Marker Topic: /waypoint_control/target_marker
-      Name: Marker
+      Name: wp_marker_target
       Namespaces:
         lines: true
       Queue Size: 100
@@ -196,7 +187,7 @@ Visualization Manager:
       Length: 0.30000001192092896
       Line Style: Lines
       Line Width: 0.029999999329447746
-      Name: Path
+      Name: path_asv
       Offset:
         X: 0
         Y: 0
@@ -220,7 +211,7 @@ Visualization Manager:
       Length: 0.30000001192092896
       Line Style: Lines
       Line Width: 0.029999999329447746
-      Name: Path
+      Name: path_asv_loaded
       Offset:
         X: 0
         Y: 0
@@ -283,9 +274,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7853981852531433
+      Pitch: 0.8203981518745422
       Target Frame: asv/base_link
-      Yaw: 0.7853981852531433
+      Yaw: 3.418581008911133
     Saved: ~
 Window Geometry:
   Displays:

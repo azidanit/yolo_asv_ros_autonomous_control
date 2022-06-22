@@ -41,5 +41,7 @@ int main(){
     sorter_arr = sortArr(arr, n);
 
     std::cout << sorter_arr[0].first << " " << sorter_arr[0].second << "\n";
+    
+    std::cout << (2 < 5 && 5 < 8) << " TF " << (2 < 9 && 9 < 8) << "\n";
     return 0;
 }
