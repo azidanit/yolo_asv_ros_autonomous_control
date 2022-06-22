@@ -41,10 +41,12 @@ geometry_msgs::Twist FindKorban::calculateOut(){
 
     if(camera_control->isPersonDetected()){
         out = camera_control->calculateOut();
+        out.linear.z = 1; //feedback control Camera
         std::cout << "CONTROLLING CAMERA\n";
     }else{
         out = wp_control->calculateOut();
         out.linear.x = ct->speedControlCalculate(0.5);
+        out.linear.z = 2; //feedback control WP
 
         std::cout << "CONTROLLING WP\n";
 

@@ -21,7 +21,7 @@ public:
 
 private:
     Control* ct;
-    PIDController* pid_x, pid_y;
+    PIDController *pid_x, *pid_y;
 
     ros::Subscriber critline_sub, obj_vision_sub;
 

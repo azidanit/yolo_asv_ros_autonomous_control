@@ -85,87 +85,6 @@ p, li { white-space: pre-wrap; }
         <string>Params</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
-        <item row="2" column="0">
-         <widget class="QGroupBox" name="groupBox_5">
-          <property name="title">
-           <string>Mission</string>
-          </property>
-          <widget class="QWidget" name="verticalLayoutWidget_2">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>20</y>
-             <width>135</width>
-             <height>171</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <widget class="QCheckBox" name="find_korban_checkBox">
-              <property name="text">
-               <string>Find Korban</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="RTH_after_done_checkBox">
-              <property name="text">
-               <string>RTH After Done</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="formLayoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>139</x>
-             <y>20</y>
-             <width>151</width>
-             <height>171</height>
-            </rect>
-           </property>
-           <layout class="QFormLayout" name="formLayout_2">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string>Patrol</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QSpinBox" name="patrol_lap_spinBox"/>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="layoutWidget">
-           <property name="geometry">
-            <rect>
-             <x>300</x>
-             <y>20</y>
-             <width>165</width>
-             <height>92</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_7">
-            <item>
-             <widget class="QCheckBox" name="obstacleAvoidanceCheckbox">
-              <property name="text">
-               <string>Obstacle Avoidance</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="obstacleStopCheckbox">
-              <property name="text">
-               <string>Obstacle Stop</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
         <item row="0" column="0" rowspan="2">
          <widget class="QGroupBox" name="groupBox_2">
           <property name="title">
@@ -958,6 +877,87 @@ color: rgb(238, 238, 236);</string>
             </layout>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="title">
+           <string>Mission</string>
+          </property>
+          <widget class="QWidget" name="verticalLayoutWidget_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>20</y>
+             <width>135</width>
+             <height>171</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QCheckBox" name="find_korban_checkBox">
+              <property name="text">
+               <string>Find Korban</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="RTH_after_done_checkBox">
+              <property name="text">
+               <string>RTH After Done</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="formLayoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>139</x>
+             <y>20</y>
+             <width>151</width>
+             <height>171</height>
+            </rect>
+           </property>
+           <layout class="QFormLayout" name="formLayout_2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Patrol</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="patrol_lap_spinBox"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="layoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>300</x>
+             <y>20</y>
+             <width>165</width>
+             <height>92</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QCheckBox" name="obstacleAvoidanceCheckbox">
+              <property name="text">
+               <string>Obstacle Avoidance</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="obstacleStopCheckbox">
+              <property name="text">
+               <string>Obstacle Stop</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>

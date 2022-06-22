@@ -12,6 +12,7 @@
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/NavSatFix.h>
 #include <std_msgs/UInt16MultiArray.h>
+#include <std_msgs/String.h>
 
 #include <tf/transform_listener.h>
 #include <tf2_ros/transform_listener.h>
@@ -27,12 +28,14 @@
 
 #include <misi/FindKorban.h>
 #include <misi/misi.h>
+#include <sub_control/ObstacleAvoidanceControl.h>
 #include <rviz_plugin/Selectedwp.h>
 
 #define LAT_TO_METER 111000
 #define LON_TO_METER 113321
 
 class FindKorban;
+class ObstacleAvoidanceControl;
 
 typedef struct {
     geometry_msgs::Point pos;
@@ -63,8 +66,11 @@ public:
     PIDController* get_pid_distance_wp_find_korban();
     PIDController* get_pid_x_cam_find_korban();
     PIDController* get_pid_y_cam_find_korban();
+    PIDController* get_pid_angle_obs_avoid();
+    PIDController* get_pid_thrust_obs_avoid();
 
     double speedControlCalculate(double target);
+    std::vector<std::pair<int, int> > sortArr(int arr[], int n);
 
 private:
     void dummyFunction();
@@ -73,10 +79,12 @@ private:
 
     Misi* misisons[1];
     FindKorban *find_korban;
+    ObstacleAvoidanceControl *obstacle_avoid_control;
 
     //FIND KORBAN PIDS
     PIDController pid_angle_wp_find_korban, pid_distance_wp_find_korban;
     PIDController pid_x_cam_find_korban, pid_y_cam_find_korban;
+    PIDController pid_angle_obs_avoid, pid_thrust_obs_avoid;
 
     //General PIDS
     PIDController pid_speed_control;
@@ -90,8 +98,10 @@ private:
     double target_constant_thrust, steer_trim, thrust_trim;
     bool use_speed_control;
 
+    std_msgs::String mission_status_msg;
+
     ros::Subscriber gps_raw_sub, mission_state_control_sub;
-    ros::Publisher asv_cmd_vel_pub;
+    ros::Publisher asv_cmd_vel_pub, mission_status_string_pub;
 
     //----ASV TF variable----
     tf::StampedTransform currentBoatTF;

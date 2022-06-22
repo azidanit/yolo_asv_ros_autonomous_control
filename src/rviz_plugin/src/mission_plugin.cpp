@@ -18,6 +18,7 @@ void MissionPanel::initPublishers(){
 
 void MissionPanel::initSubscribers(){
     nextDestSub = nh.subscribe("/next_dest", 1, &MissionPanel::nextDestCallback, this);
+    missionStatusSub = nh.subscribe("/rviz_plugin/missin_status", 1, &MissionPanel::missionStatusCallback, this);
 }
     
 void MissionPanel::initConnection(){
@@ -114,6 +115,11 @@ void MissionPanel::nextDestCallback(const rviz_plugin::NextDest& msg){
     ui->wpLcd->display(msg.wp_index);
     ui->actionLcd->display(msg.action_wp);
 }
+
+void MissionPanel::missionStatusCallback(std_msgs::String msg_){
+    ui->missionStatus->setText(msg_.data.c_str());
+}
+
 
 
 #include <pluginlib/class_list_macros.h>

@@ -3,7 +3,7 @@
 CameraControl::CameraControl(Control* ct_, Misi* ms_, PIDController* pid_x_, PIDController* pid_y_){
     this->ct = ct_;
     this->pid_x = pid_x_;
-    this->pid_x = pid_x_;
+    this->pid_y = pid_y_;
 
     is_person_detected = false;
 
@@ -30,19 +30,12 @@ bool CameraControl::isPersonDetected(){
 geometry_msgs::Twist CameraControl::calculateOut(){
     geometry_msgs::Twist out_cmd;
 
-    if(obj_person_detected.boxes.size()){
-        double error_cam_x = obj_person_detected.boxes[0].center.x - 0.5;
+    double error_cam_x = 0.5 - obj_person_detected.boxes[0].center.x;
+    double error_cam_y = crit_line - obj_person_detected.boxes[0].center.y;
 
-        out_cmd.angular.z = pid_x->updateError(error_cam_x);
+    out_cmd.angular.z = pid_x->updateError(error_cam_x);
+    out_cmd.linear.x = pid_y->updateError(error_cam_y);        
 
-        if(obj_person_detected.boxes[0].center.y * 480 < crit_line)
-            out_cmd.linear.x = ct->speedControlCalculate(0.5);
-        else
-            out_cmd.linear.x = 0;
-    }
-
-
-        
     return out_cmd;
 
 }

@@ -54,9 +54,10 @@ private:
 
     /* Callbakc for nextDest subscriber -> contain misi, wp_index */
     void nextDestCallback(const rviz_plugin::NextDest& msg);
+    void missionStatusCallback(std_msgs::String msg_);
 
     ros::NodeHandle nh;
     ros::Publisher statePub, sequencePub, wpnavPub;
-    ros::Subscriber nextDestSub;
+    ros::Subscriber nextDestSub, missionStatusSub;
 
 };
