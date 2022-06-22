@@ -45,9 +45,9 @@ def add_camera_args(parser):
                         help=('copy video frame internally [False]'))
     parser.add_argument('--do_resize', action='store_true',
                         help=('resize image/video [False]'))
-    parser.add_argument('--width', type=int, default=640,
+    parser.add_argument('--width', type=int, default=1280,
                         help='image width [640]')
-    parser.add_argument('--height', type=int, default=480,
+    parser.add_argument('--height', type=int, default=720,
                         help='image height [480]')
     return parser
 
@@ -179,8 +179,13 @@ class Camera():
                 self.img_height, self.img_width, _ = self.img_handle.shape
         elif a.video:
             logging.info('Camera: using a video file %s' % a.video)
+            print("using this cam code")
             self.video_file = a.video
             self.cap = cv2.VideoCapture(a.video)
+            # self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 30)
+            # self.cap.set(3,1280)
+            # self.cap.set(4,720)
+            # self.cap.set(5, 30)
             self._start()
         elif a.rtsp:
             logging.info('Camera: using RTSP stream %s' % a.rtsp)

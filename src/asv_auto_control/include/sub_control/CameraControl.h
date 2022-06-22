@@ -28,7 +28,10 @@ private:
     double crit_line, horizon;
     bool is_person_detected;
 
+    int confident_threshold, confident_counter;
+
     vision_msgs::BoundingBox2DArray obj_person_detected;
+    vision_msgs::BoundingBox2DArray last_obj_person_detected;
 
     void initSub();
 

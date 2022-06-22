@@ -7,6 +7,9 @@ CameraControl::CameraControl(Control* ct_, Misi* ms_, PIDController* pid_x_, PID
 
     is_person_detected = false;
 
+    confident_threshold = 30;
+    confident_counter = 0;
+
     initSub();
 }
 
@@ -21,21 +24,24 @@ void CameraControl::initSub(){
 }
 
 bool CameraControl::isPersonDetected(){
-    is_person_detected = obj_person_detected.boxes.size();
     return is_person_detected;
 }
 
 geometry_msgs::Twist CameraControl::calculateOut(){
     geometry_msgs::Twist out_cmd;
 
-    double error_cam_x = obj_person_detected.boxes[0].center.x - 0.5;
+    if(obj_person_detected.boxes.size()){
+        double error_cam_x = obj_person_detected.boxes[0].center.x - 0.5;
 
-    out_cmd.angular.z = pid_x->updateError(error_cam_x);
+        out_cmd.angular.z = pid_x->updateError(error_cam_x);
 
-    if(obj_person_detected.boxes[0].center.y * 480 < crit_line)
-        out_cmd.linear.x = ct->speedControlCalculate(0.5);
-    else
-        out_cmd.linear.x = 0;
+        if(obj_person_detected.boxes[0].center.y * 480 < crit_line)
+            out_cmd.linear.x = ct->speedControlCalculate(0.5);
+        else
+            out_cmd.linear.x = 0;
+    }
+
+
         
     return out_cmd;
 
@@ -53,5 +59,17 @@ void CameraControl::critLineCallback(std_msgs::Int32MultiArray msg){
 
 void CameraControl::personDetectionCallback(vision_msgs::BoundingBox2DArray msg){
     obj_person_detected = msg;
+
+    if(obj_person_detected.boxes.size()){
+        last_obj_person_detected = obj_person_detected;
+        confident_counter = 0;
+        is_person_detected = true;
+    }else{
+        if(confident_counter > confident_threshold){
+            is_person_detected = false;
+        }else{
+            confident_counter++;
+        }
+    }
 }
 

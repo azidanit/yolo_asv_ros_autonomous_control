@@ -3,3 +3,4 @@ build/
 .vscode
 .catkin*
 cmake-build-debug/
+**.bag
