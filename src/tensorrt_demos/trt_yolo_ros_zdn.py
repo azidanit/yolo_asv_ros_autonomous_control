@@ -5,6 +5,7 @@ TensorRT optimized YOLO engine.
 """
 
 
+import enum
 import os
 import time
 import argparse
@@ -121,9 +122,11 @@ def loop_and_detect(cam, trt_yolo, conf_th, vis):
         bb_msg_raw = BoundingBox2DArray()
         bb_msg_raw.header.stamp = rospy.Time.now()
 
+        bbox_sorted = list(boxes)
+        bbox_sorted.sort(key = lambda x : x[3], reverse=True)
 
         # bb_msg.header.stamp = rospy.rospy
-        for i in boxes:
+        for i in bbox_sorted:
             x_min = min(max(0,i[0]),camera_res_w)
             x_max = min(max(0,i[2]),camera_res_w)
             y_min = min(max(0,i[1]),camera_res_h)
@@ -155,7 +158,7 @@ def loop_and_detect(cam, trt_yolo, conf_th, vis):
         cv2.imshow(WINDOW_NAME, img)
         toc = time.time()
         curr_fps = 1.0 / (toc - tic)
-        print(fps)
+        # print(fps)
 
         img_mtx.acquire()
         img_global = img
@@ -190,7 +193,7 @@ def main():
     trt_yolo = TrtYOLO(args.model, args.category_num, args.letter_box)
 
     publish_img_thread = threading.Thread(target=compress_thread, args=())
-    publish_img_thread.start()
+    # publish_img_thread.start()
 
     open_window(
         WINDOW_NAME, 'Camera TensorRT YOLO Demo',
