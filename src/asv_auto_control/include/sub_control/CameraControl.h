@@ -30,9 +30,12 @@ private:
     double crit_line, horizon;
     bool is_person_detected;
 
+    int tracking_threshold, tracking_counter;
     int confident_threshold, confident_counter;
     int try_rotate_in_position; //to find korban
     double start_angle;
+
+
 
     vision_msgs::BoundingBox2DArray obj_person_detected;
     vision_msgs::BoundingBox2DArray last_obj_person_detected;

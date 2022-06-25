@@ -34,37 +34,37 @@ visualization_msgs::Marker convertImageToMarker(std::string frame_id, int id, cv
 
     for(int r = 0; r < src.rows; ++r) {
         for(int c = 0; c < src.cols; ++c) {
-        cv::Vec3b intensity = src.at<cv::Vec3b>(r, c);
-        crgb.r = intensity.val[2] / 255.0;
-        crgb.g = intensity.val[1] / 255.0;
-        crgb.b = intensity.val[0] / 255.0;
-        crgb.a = 1.0;
+            cv::Vec3b intensity = src.at<cv::Vec3b>(r, c);
+            crgb.r = intensity.val[2] / 255.0;
+            crgb.g = intensity.val[1] / 255.0;
+            crgb.b = intensity.val[0] / 255.0;
+            crgb.a = 1.0;
 
-        p.z = -0.1;
-        p.x = (LUCorner.first + r * pix_row ) * -1;
-        p.y = LUCorner.second + c * pix_col;
-        image.points.push_back(p);
-        image.colors.push_back(crgb);
-        p.x = (LUCorner.first + (r + 1) * pix_row ) * -1;
-        p.y = LUCorner.second + c * pix_col;
-        image.points.push_back(p);
-        image.colors.push_back(crgb);
-        p.x = (LUCorner.first + r * pix_row ) * -1;
-        p.y = LUCorner.second + (c + 1) * pix_col;
-        image.points.push_back(p);
-        image.colors.push_back(crgb);
-        p.x = (LUCorner.first + (r + 1) * pix_row ) * -1;
-        p.y = LUCorner.second + c * pix_col;
-        image.points.push_back(p);
-        image.colors.push_back(crgb);
-        p.x = (LUCorner.first + (r + 1) * pix_row ) * -1;
-        p.y = LUCorner.second + (c + 1) * pix_col;
-        image.points.push_back(p);
-        image.colors.push_back(crgb);
-        p.x = (LUCorner.first + r * pix_row ) * -1;
-        p.y = LUCorner.second + (c + 1) * pix_col;
-        image.points.push_back(p);
-        image.colors.push_back(crgb);
+            p.z = -0.1;
+            p.x = (LUCorner.first + r * pix_row ) * -1;
+            p.y = LUCorner.second + c * pix_col;
+            image.points.push_back(p);
+            image.colors.push_back(crgb);
+            p.x = (LUCorner.first + (r + 1) * pix_row ) * -1;
+            p.y = LUCorner.second + c * pix_col;
+            image.points.push_back(p);
+            image.colors.push_back(crgb);
+            p.x = (LUCorner.first + r * pix_row ) * -1;
+            p.y = LUCorner.second + (c + 1) * pix_col;
+            image.points.push_back(p);
+            image.colors.push_back(crgb);
+            p.x = (LUCorner.first + (r + 1) * pix_row ) * -1;
+            p.y = LUCorner.second + c * pix_col;
+            image.points.push_back(p);
+            image.colors.push_back(crgb);
+            p.x = (LUCorner.first + (r + 1) * pix_row ) * -1;
+            p.y = LUCorner.second + (c + 1) * pix_col;
+            image.points.push_back(p);
+            image.colors.push_back(crgb);
+            p.x = (LUCorner.first + r * pix_row ) * -1;
+            p.y = LUCorner.second + (c + 1) * pix_col;
+            image.points.push_back(p);
+            image.colors.push_back(crgb);
         }
     }
     return image;

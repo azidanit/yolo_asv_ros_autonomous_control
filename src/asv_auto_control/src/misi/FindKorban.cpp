@@ -40,6 +40,7 @@ geometry_msgs::Twist FindKorban::calculateOut(){
     geometry_msgs::Twist out;
 
     if(camera_control->isPersonDetected()){
+    // if(false){
         out = camera_control->calculateOut();
         out.linear.z = 1; //feedback control Camera
         std::cout << "CONTROLLING CAMERA\n";

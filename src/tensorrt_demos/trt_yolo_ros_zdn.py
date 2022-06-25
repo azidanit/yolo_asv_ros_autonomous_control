@@ -61,10 +61,10 @@ def parse_args():
         '-c', '--category_num', type=int, default=80,
         help='number of object categories [80]')
     parser.add_argument(
-        '-t', '--conf_thresh', type=float, default=0.3,
+        '-t', '--conf_thresh', type=float, default=0.7,
         help='set the detection confidence threshold')
     parser.add_argument(
-        '-m', '--model', type=str, required=False, default='yolov4_korban',
+        '-m', '--model', type=str, required=False, default='yolov4_train3_last',
         help=('[yolov3-tiny|yolov3|yolov3-spp|yolov4-tiny|yolov4|'
               'yolov4-csp|yolov4x-mish|yolov4-p5]-[{dimension}], where '
               '{dimension} could be either a single number (e.g. '

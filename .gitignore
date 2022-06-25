@@ -4,3 +4,4 @@ build/
 .catkin*
 cmake-build-debug/
 **.bag
+*.webm

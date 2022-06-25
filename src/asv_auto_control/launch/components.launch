@@ -3,7 +3,7 @@
 <!-- <node name="serial" pkg="serial_stm" type="serial_stm_node" args="tty /dev/ttyUSB0" output="screen" /> -->
 <node name="comm_stm" pkg="comm_stm" type="comm_stm_node" args="udp 8888 44444 169.254.223.221" output="screen" />
 <include file="$(find mavros)/launch/px4.launch">
-    <arg name="fcu_url" default="/dev/ttyACM12:57600" />
+    <arg name="fcu_url" default="/dev/serial/by-id/usb-Hex_ProfiCNC_CubeBlack_410027000151363037363632-if00:57600" />
 </include>
 <node name="rosserial_python_f401re" pkg="rosserial_python" type="serial_node.py" args="_port:=/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066EFF555457888367013218-if02 _baud:=115200" output="screen" />
 
