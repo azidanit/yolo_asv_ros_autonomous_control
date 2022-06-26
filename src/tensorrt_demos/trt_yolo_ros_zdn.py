@@ -34,12 +34,13 @@ camera_res_w = 640
 camera_res_h = 480
 
 img_global = np.zeros((camera_res_h, camera_res_w, 3), dtype=np.uint8)
-
+img_raw_global = np.zeros((camera_res_h, camera_res_w, 3), dtype=np.uint8)
 
 rospy.init_node('vision_trt')
 
 # imgPublisher = rospy.Publisher('/vision/image_detection/raw', Image, queue_size=1)
 imgCompressedPublisher = rospy.Publisher('/vision/image_detection/compressed', CompressedImg, queue_size=1)
+imgCompressedRawPublisher = rospy.Publisher('/vision/image/compressed', CompressedImg, queue_size=1)
 objPublisher = rospy.Publisher('/vision/objects',BoundingBox2DArray,queue_size=1)
 objRawPublisher = rospy.Publisher('/vision/objects/raw',BoundingBox2DArray,queue_size=1)
 
@@ -78,7 +79,7 @@ def parse_args():
 
 
 def compress_thread():
-    global img_global, bridge, imgCompressedPublisher
+    global img_global, img_raw_global, bridge, imgCompressedPublisher, imgCompressedRawPublisher
     while(not rospy.is_shutdown()):
 
         print("thread running")
@@ -88,13 +89,16 @@ def compress_thread():
         # imgPublisher.publish(imgMsg)
         imgCompressedPublisher.publish(imgMsgComp)
 
+        imgRawComp = bridge.cv2_to_compressed_imgmsg(img_raw_global)
+        imgCompressedRawPublisher.publish(imgRawComp)
+
         time.sleep(0.01)
     pass
 
 def loop_and_detect(cam, trt_yolo, conf_th, vis):
     global objPublisher, objRawPublisher
     global camera_res_h, camera_res_w
-    global img_global, img_mtx
+    global img_global, img_mtx, img_raw_global
     """Continuously capture images from camera and do object detection.
 
     # Arguments
@@ -111,6 +115,12 @@ def loop_and_detect(cam, trt_yolo, conf_th, vis):
         if cv2.getWindowProperty(WINDOW_NAME, 0) < 0:
             break
         img = cam.read()
+
+        img_mtx.acquire()
+        img_raw_global = img.copy()
+        img_mtx.release()
+
+
         if img is None:
             break
         boxes, confs, clss = trt_yolo.detect(img, conf_th)
@@ -193,7 +203,7 @@ def main():
     trt_yolo = TrtYOLO(args.model, args.category_num, args.letter_box)
 
     publish_img_thread = threading.Thread(target=compress_thread, args=())
-    # publish_img_thread.start()
+    publish_img_thread.start()
 
     open_window(
         WINDOW_NAME, 'Camera TensorRT YOLO Demo',

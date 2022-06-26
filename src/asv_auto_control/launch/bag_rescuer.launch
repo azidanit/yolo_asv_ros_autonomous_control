@@ -1,0 +1,12 @@
+<launch>
+    <!-- <include file="$(find asv_tf)/launch/start_asv_tf.launch"></include> -->
+    <param name="robot_description" command="cat $(find asv_yolo_description)/urdf/asv_yolo.urdf" />
+    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find asv_tf)/rviz/rviz.rviz" />
+
+    <node name="map_image" pkg="map_image" type="map_image_node" args="map_danau8 0 0"  output="screen" />
+
+    <node name="asv_auto_main_node" pkg="asv_auto_control" type="asv_auto_control_node" args="map_danau8" output="screen">
+        <rosparam file="$(find asv_auto_control)/config/frames.yaml"/>
+    </node>
+
+</launch>
