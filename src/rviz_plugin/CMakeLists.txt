@@ -53,6 +53,7 @@ qt5_wrap_cpp(MOC_FILES
         include/mission_plugin.h
         include/ManualControl.h
         include/drive_widget.h
+        include/korbanLog.h
 )
 
   # Convert the Qt Signals and Slots for QWidget events
@@ -64,6 +65,7 @@ qt5_wrap_ui(UIC_FILES
         ui/pixhawkSensor.ui
         ui/asv_communication.ui
         ui/camera_resp.ui
+        ui/korbanLog.ui
 )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} inlcude/)
@@ -84,7 +86,8 @@ set(SOURCE_FILES
         include/camera_plugin.h
         include/pid_plugin.h
         include/json.hpp
-        inlcude/ src/pixhawkSensor.cpp include/pixhawkSensor.h src/asvCommunication.cpp include/asvCommunication.h)
+        inlcude/ src/pixhawkSensor.cpp include/pixhawkSensor.h src/asvCommunication.cpp include/asvCommunication.h
+        src/korbanLog.cpp include/korbanLog.h)
 
 set(LIB_NAME rviz_plugin_lib)
 add_library(${LIB_NAME} ${SOURCE_FILES} ${MOC_SOURCES} ${UIC_FILES})

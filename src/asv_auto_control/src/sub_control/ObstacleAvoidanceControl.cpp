@@ -59,7 +59,8 @@ geometry_msgs::Twist ObstacleAvoidanceControl::calculateOut(){
     sorted_distance = ct->sortArr(srf_data,SRF_NUMBER);
     if (!any_gap){
         //mundur tidak ada jalan di depan
-        out_cmd.linear.x = - ct->speedControlCalculate(-1);
+        out_cmd.linear.x = -0.4;
+        std::cout << "MUNDURRR\n";
         return out_cmd;
     }else if(all_gap_free){
         if(all_early_gap_free){

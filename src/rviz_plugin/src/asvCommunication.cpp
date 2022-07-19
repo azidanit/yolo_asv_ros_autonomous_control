@@ -46,7 +46,7 @@ void asvCommunicationPanel::sendControlCallback(const geometry_msgs::Twist& msg)
 
     
     ui_->brake_bar->setValue((int)(msg.linear.x * 1000 * -1));
-    ui_->brake_label->setText(QString(std::to_string(msg.linear.z).c_str()));
+    ui_->brake_label->setText(QString(std::to_string(msg.linear.x).c_str()));
 
     ui_->steering_label->setText(QString(std::to_string(msg.angular.z).c_str()));
 

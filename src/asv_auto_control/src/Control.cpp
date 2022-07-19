@@ -42,7 +42,7 @@ void Control::run(){
                 geometry_msgs::Twist obs_cmd;
                 obs_cmd = obstacle_avoid_control->calculateOut();
                 // std::cout << "bukan control camera " << obs_cmd << "\n";
-                if(obs_cmd.linear.x != 0 && obs_cmd.angular.z != 0){
+                if((obs_cmd.linear.x != 0 && obs_cmd.angular.z != 0) || obs_cmd.linear.x < 0){
                     out_cmd = obs_cmd;
                     std::cout << "MENHINDARRR\n";
                     mission_status_msg.data = "SRF Control";

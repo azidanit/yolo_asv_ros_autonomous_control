@@ -55,5 +55,13 @@
       A panel widget to monitor asv communication.
     </description>
   </class>
+
+  <class name="rviz_plugin/korbanLog"
+         type="korbanLogPanel"
+         base_class_type="rviz::Panel">
+    <description>
+      A panel widget to monitor korban Found Log.
+    </description>
+  </class>
 </library>
 
