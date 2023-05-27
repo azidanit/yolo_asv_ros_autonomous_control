@@ -20,7 +20,12 @@ private:
 
     ros::Publisher gps_sensor_pub_;
     ros::Publisher compass_sensor_pub_;
+    ros::Publisher cmd_vel_pub_;
+
     ros::Subscriber odom_sub_;
+    ros::Subscriber cmd_vel_sub_;
+
+    int counter_no_cmd_vel;
 
     sensor_msgs::NavSatFix gps_sensor_msg_;
     std_msgs::Float64 compass_hdg_;
@@ -35,4 +40,5 @@ private:
     void setCompassHdgByOdom(const nav_msgs::Odometry::ConstPtr& odom_msg);
 
     void onOdomCallback(const nav_msgs::Odometry::ConstPtr& msg);
+    void onCmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg);
 };
