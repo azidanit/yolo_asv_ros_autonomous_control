@@ -59,7 +59,7 @@ void App::initConnection() {
     connect(control, &Control::setCritLine, w, &MainWindow::changeCritLine, Qt::QueuedConnection);
 
     //PATH INIT
-    connect(w, &MainWindow::startRecordPath, control, &Control::startRecordPath, Qt::DirectConnection);
+    connect(w, &MainWindow::startRecordPath, control, &Control::startRecordPath, Qt::QueuedConnection);
     connect(w, &MainWindow::stopRecordPath, control, &Control::stopRecordPath, Qt::DirectConnection);
     connect(w, &MainWindow::clearPath, control, &Control::clearPath, Qt::DirectConnection);
     connect(w, &MainWindow::savePath, control, &Control::savePath, Qt::DirectConnection);

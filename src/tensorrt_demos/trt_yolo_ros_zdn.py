@@ -160,9 +160,6 @@ def loop_and_detect(cam, trt_yolo, conf_th, vis):
         objPublisher.publish(bb_msg)
         objRawPublisher.publish(bb_msg_raw)
 
-
-        
-
         img = vis.draw_bboxes(img, boxes, confs, clss)
         img = show_fps(img, fps)
         cv2.imshow(WINDOW_NAME, img)

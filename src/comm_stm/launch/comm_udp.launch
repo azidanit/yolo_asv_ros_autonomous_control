@@ -1,5 +1,6 @@
 <launch>
 <!--    <node name="serial" pkg="comm_stm" type="comm_stm_node" args="udp 44444 8888 169.254.183.100" output="screen" />-->
    <!-- <node name="serial" pkg="comm_stm" type="comm_stm_node" args="udp 44444 8888 0.0.0.0" output="screen" /> -->
-    <node name="comm_stm" pkg="comm_stm" type="comm_stm_node" args="udp 8888 44444 169.254.223.221" output="screen" />
+    <!-- <node name="comm_stm" pkg="comm_stm" type="comm_stm_node" args="udp 8888 44444 169.254.223.221" output="screen" /> -->
+    <node name="comm_stm" pkg="comm_stm" type="comm_stm_node" args="udp 8888 44444 192.168.1.177" output="screen" />
 </launch>

@@ -10,7 +10,7 @@ Control::Control(){
 
     //init tf var
     tfListener = new tf2_ros::TransformListener(tfBuffer);
-
+    is_path_recorded = false;
     
     // misisons[0] = new FindKorban(this);
     find_korban = new FindKorban(this);
@@ -342,9 +342,9 @@ void Control::pitchChanged(int idx, double val) {
 
 
 void Control::startRecordPath(){
-    // std::cout << "Start record path" << std::endl;
+    std::cout << "Start record path" << std::endl;
     if (is_path_recorded){
-        // std::cout << "is recording... " << std::endl;
+        std::cout << "is recording... " << std::endl;
         return;
     }
 
@@ -373,10 +373,10 @@ void Control::recordPath(){
     pose.header.frame_id = "map";
     path_msg.header.frame_id = "map";
     is_path_recorded = true;
-    // printf("masuk path record\n");
+    printf("masuk path record\n");
 
     while(is_path_recorded){
-        // printf("masuk path record\n");
+        printf("masuk path record\n");
         pose.header.stamp = ros::Time::now();
         pose.pose.position.x = transformStamped.transform.translation.x;
         pose.pose.position.y = transformStamped.transform.translation.y;
@@ -391,6 +391,7 @@ void Control::recordPath(){
         path_pub.publish(path_msg);
 
         // Record GPS
+        printf("recording path");
         if(current_gps.latitude != 0.0000 && current_gps.longitude != 0.0000){
             global_path.push_back(current_gps);
 

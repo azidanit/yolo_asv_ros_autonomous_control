@@ -157,7 +157,7 @@ void MainWindow::initPathRecorder(){
 
     connect(ui->stopPathButton, &QPushButton::clicked,
             [=](){
-                std::cout << "Start record path clicked" << std::endl;
+                std::cout << "Stop record path clicked" << std::endl;
                 ui->startPathButton->setEnabled(true);
                 ui->stopPathButton->setDisabled(true);
                 emit stopRecordPath();
