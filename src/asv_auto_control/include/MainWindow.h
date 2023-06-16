@@ -96,6 +96,11 @@ signals:
     void iChanged(int, double);
     void dChanged(int, double);
 
+    void startLatLongChanged(double, double);
+    void endLatLongChanged(double, double);
+    void trackSpecsChanged(double, double, double);
+    void generateTrackPathClicked(double);
+
     void speedChanged(int, int);
     void speedChangedDouble(int, double);
     void distanceChanged(int, double);

@@ -2,6 +2,7 @@
 #include "sensor_msgs/NavSatFix.h"
 #include "nav_msgs/Odometry.h"
 #include "std_msgs/Float64.h"
+#include "geometry_msgs/TwistStamped.h"
 #include <ros/package.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Matrix3x3.h>
@@ -18,7 +19,7 @@ public:
 private:
     ros::NodeHandle* nh_;
 
-    ros::Publisher gps_sensor_pub_;
+    ros::Publisher gps_sensor_pub_, gps_vel_pub_;
     ros::Publisher compass_sensor_pub_;
     ros::Publisher cmd_vel_pub_;
 
@@ -29,6 +30,7 @@ private:
 
     sensor_msgs::NavSatFix gps_sensor_msg_;
     std_msgs::Float64 compass_hdg_;
+    geometry_msgs::TwistStamped gps_vel_msg_;
 
     double map_origin_latlong_[4];
     double lat_center;

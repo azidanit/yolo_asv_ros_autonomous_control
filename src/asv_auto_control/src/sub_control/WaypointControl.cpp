@@ -17,9 +17,9 @@ WaypointControl::WaypointControl(Control *ct,  Misi* ms, PIDController* pid_d, P
    path_idx = 1;
    path_idx_before = 0;
 
-   path_keep_distance = 7;
+   path_keep_distance = 2.5;
    path_angle_limit = 50;
-   path_length_trace = 1;
+   path_length_trace = 6;
 
 //    main_path = ct_->getPathMain();
 
@@ -49,6 +49,12 @@ void WaypointControl::stopAndReset(){
 
 geometry_msgs::Twist WaypointControl::calculateOut() {
    geometry_msgs::Twist output;
+   output.linear.x = 0;
+   output.linear.y = 0;
+   output.linear.z = 0;
+   output.angular.z = 0;
+   output.angular.x = 0;
+   output.angular.y = 0;
 
    //{TODO} Check using which path
    if (main_path.poses.size() < (path_idx+1) ){
@@ -61,13 +67,20 @@ geometry_msgs::Twist WaypointControl::calculateOut() {
        return output;
    }
    if (isArrivedPath()){
-       path_idx++;
+       path_idx+=2;
        path_idx_before = path_idx - path_length_trace;
        if(path_idx_before < 0) {
            path_idx_before = 0;
        }
+       if (path_idx >= main_path.poses.size()-1){
+           path_idx = main_path.poses.size()-1;
+           path_idx_before = path_idx - 1;
+            output.angular.x = -1;
+           return output;
+       }
 //        std::cout << "SAMPAI PATH NEXT PATH\n";
    }
+
 
 //    std::cout << "debug crash sampai sini 1\n";
 

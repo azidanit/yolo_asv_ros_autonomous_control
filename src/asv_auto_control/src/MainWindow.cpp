@@ -242,6 +242,32 @@ void MainWindow::initConnectionPID(){
     connect(ui->doubleSpinBox_IBr, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit iChanged(-4, value); });
     connect(ui->doubleSpinBox_DBr, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit dChanged(-4, value); });
 
+    connect(ui->doubleSpinBox_latitude_start, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit startLatLongChanged(value, ui->doubleSpinBox_longitude_start->value()); });
+    connect(ui->doubleSpinBox_longitude_start, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit startLatLongChanged(ui->doubleSpinBox_latitude_start->value(), value); });
+    connect(ui->doubleSpinBox_latitude_end, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit endLatLongChanged(value, ui->doubleSpinBox_longitude_end->value()); });
+    connect(ui->doubleSpinBox_longitude_end, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit endLatLongChanged(ui->doubleSpinBox_latitude_end->value(), value); });
+
+    connect(ui->lineEdit_lat_long_start, &QLineEdit::textChanged, [=](QString value){ 
+        std::string lat_long_str = value.toStdString();
+        double latitude, longitude;
+        char comma;
+
+        std::istringstream iss(lat_long_str);
+        if (iss >> latitude >> comma >> longitude && comma == ',') {
+            ui->doubleSpinBox_latitude_start->setValue(latitude);
+            ui->doubleSpinBox_longitude_start->setValue(longitude);
+        } 
+    });
+
+    connect(ui->doubleSpinBox_long_pattern_count, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit trackSpecsChanged(value, ui->doubleSpinBox_long_pattern_distance->value(), ui->doubleSpinBox_short_pattern_distance->value()); });
+    connect(ui->doubleSpinBox_long_pattern_distance, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit trackSpecsChanged(ui->doubleSpinBox_long_pattern_count->value(), value, ui->doubleSpinBox_short_pattern_distance->value()); });
+    connect(ui->doubleSpinBox_short_pattern_distance, static_cast<void (QDoubleSpinBox::*)(double)> (&QDoubleSpinBox::valueChanged), [=](double value){ emit trackSpecsChanged(ui->doubleSpinBox_long_pattern_count->value(), ui->doubleSpinBox_long_pattern_distance->value(), value); });
+
+    connect(ui->pushButton_generate_track_path,&QPushButton::clicked, [=](){
+        emit generateTrackPathClicked(ui->doubleSpinBox_angle_pattern->value());
+    });
+
+
     connect(ui->speedControlCheckbox, &QCheckBox::stateChanged, [=](bool val){ emit useSpeedControl(val); });
 
     connect(ui->checkBoxUsingAccError, &QCheckBox::stateChanged,

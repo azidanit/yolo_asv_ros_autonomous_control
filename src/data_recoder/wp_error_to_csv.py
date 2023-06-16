@@ -5,7 +5,7 @@ from std_msgs.msg import Float64
 from vision_msgs.msg import BoundingBox2DArray
 
 # open the file in the write mode
-f = open('edgar_5_2.csv', 'w')
+f = open('koci_4.csv', 'w')
 
 # create the csv writer
 writer = csv.writer(f)

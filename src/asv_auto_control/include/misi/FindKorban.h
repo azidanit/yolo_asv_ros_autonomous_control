@@ -4,6 +4,7 @@
 
 #include "Control.h"
 #include <rviz_plugin/Selectedwp.h>
+#include "nav_msgs/Path.h"
 #include "misi/misi.h"
 
 #include "sub_control/WaypointControl.h"
@@ -26,8 +27,10 @@ private:
     Control* ct;
     WaypointControl *wp_control;
     CameraControl *camera_control;
+    nav_msgs::Path track_path;
 
     ros::Subscriber path_sub;
+    ros::Subscriber track_path_sub;
 
     PIDController *pid_distance_wp, *pid_angle_wp;
     PIDController *pid_x_cam, *pid_y_cam;
@@ -38,7 +41,7 @@ private:
     void initSub();
     void initVar();
     void wpCallback(rviz_plugin::Selectedwp msg_wp);
-
+    void trackPathCallback(nav_msgs::Path);
 
 };
 

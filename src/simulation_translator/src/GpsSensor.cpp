@@ -8,6 +8,7 @@ GpsSensor::GpsSensor(ros::NodeHandle nh) {
 
     gps_sensor_pub_ = nh_->advertise<sensor_msgs::NavSatFix>("/mavros/global_position/global", 100);
     compass_sensor_pub_ = nh_->advertise<std_msgs::Float64>("/mavros/global_position/compass_hdg", 100);
+    gps_vel_pub_ = nh_->advertise<geometry_msgs::TwistStamped>("/mavros/global_position/raw/gps_vel", 100);
     cmd_vel_pub_ = nh_->advertise<geometry_msgs::Twist>("/cmd_vel", 100);
 
     odom_sub_ = nh_->subscribe("/odom", 1000, &GpsSensor::onOdomCallback, this);
@@ -83,6 +84,11 @@ void GpsSensor::onOdomCallback(const nav_msgs::Odometry::ConstPtr& odom_msg){
         cmd_vel_pub_.publish(cmd_vel_msg);
     }
 
+    gps_vel_msg_.twist.linear.x = odom_msg->twist.twist.linear.x;
+    gps_vel_msg_.twist.linear.y = odom_msg->twist.twist.linear.y;
+    gps_vel_msg_.twist.linear.z = odom_msg->twist.twist.linear.z;
+
+    gps_vel_pub_.publish(gps_vel_msg_);
     gps_sensor_pub_.publish(gps_sensor_msg_);
     compass_sensor_pub_.publish(compass_hdg_);
 }
@@ -91,12 +97,12 @@ void GpsSensor::onCmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg){
     counter_no_cmd_vel = 0;
     
     geometry_msgs::Twist cmd_vel;
-    cmd_vel.linear.x = msg->linear.x * 2.5;
+    cmd_vel.linear.x = msg->linear.x * 3.5;
     cmd_vel.linear.y = msg->linear.y;
     cmd_vel.linear.z = msg->linear.z;
     cmd_vel.angular.x = msg->angular.x;
     cmd_vel.angular.y = msg->angular.y;
-    cmd_vel.angular.z = msg->angular.z;
+    cmd_vel.angular.z = msg->angular.z * 1.75;
 
     cmd_vel_pub_.publish(cmd_vel);
 }

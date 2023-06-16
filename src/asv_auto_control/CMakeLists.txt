@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
         nav_msgs
         tf
         vision_msgs
+        roslib
 )
 
 find_package( OpenCV REQUIRED )

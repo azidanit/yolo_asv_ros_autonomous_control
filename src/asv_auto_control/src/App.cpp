@@ -69,6 +69,13 @@ void App::initConnection() {
     connect(w, &MainWindow::critLineChanged, control, &Control::changeCritLine, Qt::DirectConnection);
     connect(w, &MainWindow::boatSideChanged, control, &Control::changeBoatSide, Qt::DirectConnection);
 
+    connect(w, &MainWindow::startLatLongChanged, control, &Control::changeStartLatLong, Qt::DirectConnection);
+    connect(w, &MainWindow::endLatLongChanged, control, &Control::changeEndLatLong, Qt::DirectConnection);
+    connect(w, &MainWindow::trackSpecsChanged, control, &Control::changeTrackSpecs, Qt::DirectConnection);
+    connect(w, &MainWindow::generateTrackPathClicked, control, &Control::generateTrackPath, Qt::QueuedConnection);
+
+
+
     //    connect(w, &MainWindow::critLineChanged2, misi, &Misi::changeCritLine2, Qt::DirectConnection);
 
 }

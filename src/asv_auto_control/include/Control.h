@@ -6,6 +6,7 @@
 #define SRC_CONTROL_H
 
 #include "ros/ros.h"
+#include <ros/package.h>
 
 #include <nav_msgs/Path.h>
 #include <geometry_msgs/TransformStamped.h>
@@ -97,6 +98,10 @@ private:
     double alpha_ema;
     geometry_msgs::Twist out_cmd_ema, out_cmd_ema_before;
 
+    //PATH PATTERN SEARCH
+    double start_lat_long[2];
+    double end_lat_long[2];
+    double track_specs[3];
 
     //Mission Var
     std_msgs::UInt16MultiArray mission_state;
@@ -122,9 +127,9 @@ private:
     double current_asv_speed;
 
 
-
     //PATH VARIABLE
     ros::Publisher path_pub, loaded_path_pub, global_path_pub;
+    ros::Publisher track_path_pub, track_start_text_pub;
     nav_msgs::Path path_msg, loaded_path_msg, global_path_msg;
     std::vector<sensor_msgs::NavSatFix> global_path;
     sensor_msgs::NavSatFix current_gps;
@@ -144,6 +149,8 @@ private:
     void stateMissionCallback(std_msgs::UInt16MultiArray msgl);
     void sendCmdVel();
 
+    void getLocalFromGlobalPose(double lat_global, double lon_global, double *x_local, double *y_local);
+    void offsetPathFromGlobalPose(nav_msgs::Path &path, double lat, double lon);
 
 public slots:
     //DARI UI
@@ -187,6 +194,11 @@ public slots:
 
     void changeCritLine(int, int);
     void changeBoatSide(QPoint**);
+
+    void changeStartLatLong(double, double);
+    void changeEndLatLong(double, double);
+    void changeTrackSpecs(double, double, double);
+    void generateTrackPath(double);
 
 signals:
     void setLogInformationDisplay(QString msg);

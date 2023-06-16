@@ -48,10 +48,12 @@ geometry_msgs::Twist FindKorban::calculateOut(){
         out = wp_control->calculateOut();
         out.linear.x = ct->speedControlCalculate(0.5);
         out.linear.z = 2; //feedback control WP
+        if (out.angular.x == -1){
+            out.linear.x = 0;
+            out.angular.z = 0;
+        }
 
         std::cout << "CONTROLLING WP\n";
-
-
     }   
     
     return out;
@@ -60,6 +62,7 @@ geometry_msgs::Twist FindKorban::calculateOut(){
 
 void FindKorban::initSub(){
     path_sub = ct->nh.subscribe("/waypoints", 1, &FindKorban::wpCallback, this);
+    track_path_sub = ct->nh.subscribe("/path_asv_track", 1, &FindKorban::trackPathCallback, this);
 
 }
 
@@ -68,8 +71,12 @@ void FindKorban::wpCallback(rviz_plugin::Selectedwp msg_wp){
     if (msg_wp.missionSelected == 1){
         std::cout << "FIND KORBAN GOT WP\n";
         wp_control->setPath(msg_wp.wp);
-
     }
+}
+
+void FindKorban::trackPathCallback(nav_msgs::Path msg_path){
+    std::cout << "FIND KORBAN GOT TRACK PATH\n";
+    wp_control->setPath(msg_path);
 }
 
 void FindKorban::stop(){
