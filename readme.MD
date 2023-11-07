@@ -1,6 +1,8 @@
 ## Autonomous Surface Vehicle in Search and Rescue Process of Marine Casualty using Computer Vision Based Victims Detection
 #### Code Implementation used in my research [refer to my IEEE paper](https://ieeexplore.ieee.org/document/10037319)
+if you don't have access to IEEE there is [copy of my paper on my linkedIn Profile](https://www.linkedin.com/in/azidanit/overlay/1635517143500/single-media-viewer/?profileId=ACoAACm5SEoBIuj_Xxd6z3rRYiOlCtUJRUGaDtI)
 
+---
 This is My Final Project (research) for my Bachelor Degree.
 All code implemented using C++, except the Computer Vision part is using python.
 
